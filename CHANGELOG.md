@@ -142,8 +142,8 @@
 ### Changed
 
 - Documentation updates and code cleanup.
-- Плагин переименован в PolyChat
-- Все ссылки обновлены на новый репозиторий: https://github.com/semernyakov/polychat
+- Плагин переименован в PolyMind
+- Все ссылки обновлены на новый репозиторий: https://github.com/semernyakov/polymind
 - Документация и инструкции обновлены под новое название
 - Обновлены community-plugins.json и manifest.json
 

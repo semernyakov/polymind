@@ -1,10 +1,10 @@
-# PolyChat – Obsidian Plugin
+# PolyMind – Obsidian Plugin
 
-[![Release](https://img.shields.io/github/v/release/semernyakov/polychat?style=flat-square&label=Release)](https://github.com/semernyakov/polychat/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/semernyakov/polychat/total?style=flat-square&label=Downloads)](https://github.com/semernyakov/polychat/releases)
-[![License](https://img.shields.io/github/license/semernyakov/polychat?style=flat-square&label=License)](LICENSE)
-[![Tests](https://img.shields.io/github/actions/workflow/status/semernyakov/polychat/ci.yml?branch=master&style=flat-square&label=Tests)](https://github.com/semernyakov/polychat/actions/workflows/ci.yml)
-[![NPM](https://img.shields.io/npm/v/groq-poly-chat?style=flat-square&label=NPM)](https://www.npmjs.com/package/groq-poly-chat)
+[![Release](https://img.shields.io/github/v/release/semernyakov/polymind?style=flat-square&label=Release)](https://github.com/semernyakov/polymind/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/semernyakov/polymind/total?style=flat-square&label=Downloads)](https://github.com/semernyakov/polymind/releases)
+[![License](https://img.shields.io/github/license/semernyakov/polymind?style=flat-square&label=License)](LICENSE)
+[![Tests](https://img.shields.io/github/actions/workflow/status/semernyakov/polymind/ci.yml?branch=master&style=flat-square&label=Tests)](https://github.com/semernyakov/polymind/actions/workflows/ci.yml)
+[![NPM](https://img.shields.io/npm/v/polymind?style=flat-square&label=NPM)](https://www.npmjs.com/package/polymind)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa?style=flat-square&label=Contributor%20Covenant)](CODE_OF_CONDUCT.md)
 
 <!-- [![Coverage](https://img.shields.io/codecov/c/github/semernyakov/groq-chat-plugin?style=flat-square)](https://codecov.io/gh/semernyakov/groq-chat-plugin) -->
@@ -13,17 +13,17 @@
 
 A plugin for Obsidian that integrates Groq AI capabilities directly into your notes.
 
-PolyChat is a powerful chat extension with support for AI models via the Groq API. Designed for flexibility and ease of use, it enables seamless communication with multiple models directly from your vault.
+PolyMind is a powerful chat extension with support for AI models via the Groq API. Designed for flexibility and ease of use, it enables seamless communication with multiple models directly from your vault.
 
 ## Screenshots
 
 **Main Interface**
 
-![polychat-main.png](docs/polychat-main.png)
+![polymind-main.png](docs/polymind-main.png)
 
 **Settings Interface**
 
-![polychat-settings.png](docs/polychat-settings.png)
+![polymind-settings.png](docs/polymind-settings.png)
 
 ## Features
 
@@ -62,7 +62,7 @@ This project is actively maintained and developed. New features are added regula
 
 1. Open Obsidian Settings
 2. Go to Community Plugins and disable Safe Mode
-3. Click Browse and search for "PolyChat"
+3. Click Browse and search for "PolyMind"
 4. Install the plugin
 5. Enable the plugin in Community Plugins
 
@@ -76,7 +76,7 @@ This project is actively maintained and developed. New features are added regula
 ## Usage
 
 1. Open any note in Obsidian
-2. Click the PolyChat icon in the sidebar
+2. Click the PolyMind icon in the sidebar
 3. Select the model you want (models update in real time)
 4. Start chatting with AI (text, code)
 5. View model info any time via the Model Info Dialog
@@ -90,7 +90,7 @@ You can install and test the latest development version of the plugin using the 
 1. Install BRAT from the Obsidian Community Plugins.
 2. Open BRAT settings.
 3. Click Add Beta Plugin.
-4. Paste the repository URL: https://github.com/semernyakov/polychat
+4. Paste the repository URL: https://github.com/semernyakov/polymind
 5. Confirm installation.
 
 BRAT will automatically install the plugin and allow you to receive updates directly from the repository.
@@ -99,7 +99,7 @@ BRAT will automatically install the plugin and allow you to receive updates dire
 
 ```bash
 # Clone the repository
-git clone https://github.com/semernyakov/polychat.git
+git clone https://github.com/semernyakov/polymind.git
 
 # Install dependencies
 npm install
@@ -135,12 +135,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ## Support
 
-If you find PolyChat helpful, you can support development via:
+If you find PolyMind helpful, you can support development via:
 
 - 💰 **YooMoney**: [Support via YooMoney](https://yoomoney.ru/fundraise/194GT5A5R07.250321)
   - Accepts transfers from both Russia and other Countries (via bank cards)
-- ⭐ **Star the repository**: [Add a star on GitHub](https://github.com/semernyakov/polychat)
-- 🐛 **Report issues**: [Create an issue](https://github.com/semernyakov/polychat/issues)
+- ⭐ **Star the repository**: [Add a star on GitHub](https://github.com/semernyakov/polymind)
+- 🐛 **Report issues**: [Create an issue](https://github.com/semernyakov/polymind/issues)
 
 ## Changelog
 
