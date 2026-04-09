@@ -1,3 +1,0 @@
-curl -X GET "https://api.groq.com/openai/v1/models" \
-     -H "Authorization: Bearer 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" \
-     -H "Content-Type: application/json"
