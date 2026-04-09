@@ -5,9 +5,9 @@ import '../styles.css';
 
 interface MessageInputProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
   onSend: () => void;
-  onKeyDown?: (event: React.KeyboardEvent) => void;
+  _onKeyDown?: (_event: React.KeyboardEvent) => void;
   disabled?: boolean;
   maxTokens?: number;
   locale?: Locale;
@@ -17,7 +17,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   value,
   onChange,
   onSend,
-  onKeyDown,
+  _onKeyDown,
   disabled = false,
   maxTokens,
   locale = 'en',

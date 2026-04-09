@@ -12,7 +12,7 @@ export class AuthService {
       updateApiKey?: (_apiKey: string) => void;
     },
     private readonly plugin: {
-      saveData: (data: Record<string, unknown>) => Promise<void>;
+      saveData: (_data: Record<string, unknown>) => Promise<void>;
       loadData: () => Promise<Record<string, unknown> | null>;
       app?: App & {
         plugins?: {
@@ -37,8 +37,11 @@ export class AuthService {
   /**
    * Загрузка сохранённого API-ключа при инициализации
    */
+
   async loadApiKey(): Promise<void> {
     const data = await this.plugin.loadData();
+    /* eslint-enable-next-line @typescript-eslint/no-unused-vars */
+
     if (data?.apiKey && typeof data.apiKey === 'string') {
       this.apiKey = data.apiKey;
       this.apiKeyIsSet = true;

@@ -55,8 +55,9 @@ export interface ModelParams {
 }
 
 // Enum для моделей (расширять по мере необходимости)
+
 export enum GroqModel {
-  LLAMA3_70B = 'llama3-70b-8192',
+  // Add model constants here as needed
 }
 
 // Основная информация о модели

@@ -9,7 +9,7 @@ import { fixModelNameCasing, groupModelsByOwner, isPreviewModel } from '../utils
 export interface ModelSelectorProps {
   plugin: GroqPluginInterface;
   selectedModel: string;
-  onSelectModel: (modelId: string) => void;
+  onSelectModel: (_modelId: string) => void;
   getAvailableModels: () => Promise<GroqModelInfo[]>;
   availableModels?: GroqModelInfo[];
   locale?: Locale;

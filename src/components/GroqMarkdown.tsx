@@ -7,7 +7,7 @@ import '../styles.css';
 // Type for Obsidian container elements
 interface ObsidianContainerElement extends HTMLElement {
   empty(): void;
-  setText(text: string): void;
+  setText(_text: string): void;
 }
 
 // Type assertion helper for window.app

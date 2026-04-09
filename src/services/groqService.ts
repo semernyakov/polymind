@@ -31,19 +31,19 @@ interface GroqApiModel {
 }
 
 interface GroqServiceMethods {
-  updateApiKey: (apiKey: string) => void;
-  validateApiKey: (apiKey: string) => Promise<boolean>;
+  updateApiKey: (_apiKey: string) => void;
+  validateApiKey: (_apiKey: string) => Promise<boolean>;
   sendMessage: (
-    content: string,
-    model: string,
-    onChunk?: (chunk: string) => void,
+    _content: string,
+    _model: string,
+    _onChunk?: (_chunk: string) => void,
   ) => Promise<Message>;
   getAvailableModels: () => Promise<{ id: string; name: string; description?: string }[]>;
-  getAvailableModelsWithLimits: (forceRefresh?: boolean) => Promise<{
+  getAvailableModelsWithLimits: (_forceRefresh?: boolean) => Promise<{
     models: GroqModelInfo[];
     rateLimits: RateLimitsType;
   }>;
-  handleApiError: (error: unknown) => Error;
+  handleApiError: (_error: unknown) => Error;
 }
 
 export class GroqService implements GroqServiceMethods {
@@ -56,27 +56,27 @@ export class GroqService implements GroqServiceMethods {
   } | null = null;
   private readonly CACHE_TTL = 60 * 60 * 1000; // 1 час
 
-  constructor(private readonly plugin: GroqPluginInterface) {
+  constructor(private readonly _plugin: GroqPluginInterface) {
     this.client = new Groq({
-      apiKey: this.plugin.settings.apiKey,
+      apiKey: this._plugin.settings.apiKey,
       dangerouslyAllowBrowser: true,
     });
   }
 
-  public updateApiKey(apiKey: string): void {
+  public updateApiKey(_apiKey: string): void {
     this.client = new Groq({
-      apiKey: apiKey,
+      apiKey: _apiKey,
       dangerouslyAllowBrowser: true,
     });
     this.modelCache = null; // Сброс кэша при смене ключа
   }
 
-  public async validateApiKey(apiKey: string): Promise<boolean> {
-    if (!apiKey) return false;
+  public async validateApiKey(_apiKey: string): Promise<boolean> {
+    if (!_apiKey) return false;
     try {
       const { models } = await this.getAvailableModelsWithLimits();
       const testModel = models[0]?.id || 'llama3-8b-8192';
-      const tempClient = new Groq({ apiKey, dangerouslyAllowBrowser: true });
+      const tempClient = new Groq({ apiKey: _apiKey, dangerouslyAllowBrowser: true });
       await this.retryRequest(() =>
         tempClient.chat.completions.create({
           model: testModel,
@@ -94,10 +94,10 @@ export class GroqService implements GroqServiceMethods {
   public async sendMessage(
     content: string,
     model: string,
-    onChunk?: (chunk: string) => void,
+    onChunk?: (_chunk: string) => void,
   ): Promise<Message> {
     if (!content.trim()) throw new Error(t('emptyMessage'));
-    if (!model || !this.plugin.settings.groqAvailableModels?.some(m => m.id === model)) {
+    if (!model || !this._plugin.settings.groqAvailableModels?.some(m => m.id === model)) {
       throw new Error(t('modelNotAvailable').replace('{{model}}', model));
     }
     try {
@@ -110,8 +110,8 @@ export class GroqService implements GroqServiceMethods {
         this.client.chat.completions.create({
           model,
           messages: [{ role: 'user', content }],
-          temperature: this.plugin.settings.temperature,
-          max_tokens: Math.min(this.plugin.settings.maxTokens, this.getModelMaxTokens(model)),
+          temperature: this._plugin.settings.temperature,
+          max_tokens: Math.min(this._plugin.settings.maxTokens, this.getModelMaxTokens(model)),
           stream: true,
         }),
       );
@@ -119,12 +119,13 @@ export class GroqService implements GroqServiceMethods {
       let fullContent = '';
       let messageId = '';
 
-      for await (const chunk of streamResponse) {
-        if (!messageId && chunk.id) {
-          messageId = chunk.id;
+      for await (const _chunk of streamResponse) {
+        void _chunk;
+        if (!messageId && _chunk.id) {
+          messageId = _chunk.id;
         }
-        if (chunk.choices[0]?.delta?.content) {
-          const chunkContent = chunk.choices[0].delta.content;
+        if (_chunk.choices[0]?.delta?.content) {
+          const chunkContent = _chunk.choices[0].delta.content;
           fullContent += chunkContent;
           if (onChunk) {
             onChunk(chunkContent);
@@ -158,13 +159,13 @@ export class GroqService implements GroqServiceMethods {
     }));
   }
 
-  public async getAvailableModelsWithLimits(forceRefresh = false): Promise<{
+  public async getAvailableModelsWithLimits(_forceRefresh = false): Promise<{
     models: GroqModelInfo[];
     rateLimits: RateLimitsType;
   }> {
     // Проверка кэша
     if (
-      !forceRefresh &&
+      !_forceRefresh &&
       this.modelCache &&
       Date.now() - this.modelCache.timestamp < this.CACHE_TTL
     ) {
@@ -176,7 +177,7 @@ export class GroqService implements GroqServiceMethods {
           url: 'https://api.groq.com/openai/v1/models',
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${this.plugin.settings.apiKey}`,
+            Authorization: `Bearer ${this._plugin.settings.apiKey}`,
             'Content-Type': 'application/json',
           },
         });

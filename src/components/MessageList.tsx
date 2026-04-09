@@ -24,7 +24,7 @@ interface MessageListProps {
 
 export interface MessageListHandles {
   scrollToTop: () => void;
-  scrollToBottom: (opts?: { smooth?: boolean }) => void;
+  scrollToBottom: (_opts?: { smooth?: boolean }) => void;
   forceUpdate: () => void;
 }
 

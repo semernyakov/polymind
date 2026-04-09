@@ -11,7 +11,7 @@ interface WindowWithLanguage {
 
 interface PluginSettingsContextType {
   settings: GroqChatSettings;
-  updateSettings: (newSettings: Partial<GroqChatSettings>) => void;
+  updateSettings: (_newSettings: Partial<GroqChatSettings>) => void;
   locale: Locale;
 }
 
@@ -49,8 +49,8 @@ export const PluginSettingsProvider: React.FC<PluginSettingsProviderProps> = ({
     return (appLang && appLang.toLowerCase().startsWith('ru') ? 'ru' : 'en') as Locale;
   };
 
-  const updateSettings = (_newSettings: Partial<GroqChatSettings>) => {
-    setSettings(prev => ({ ...prev, ..._newSettings }));
+  const updateSettings = (newSettings: Partial<GroqChatSettings>) => {
+    setSettings(prev => ({ ...prev, ...newSettings }));
   };
 
   useEffect(() => {

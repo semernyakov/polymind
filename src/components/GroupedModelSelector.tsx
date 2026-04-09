@@ -9,7 +9,7 @@ import { groupModelsByOwner, isPreviewModel } from '../utils/modelUtils';
 interface GroupedModelSelectorProps {
   plugin: GroqPluginInterface;
   selectedModel: string;
-  onSelectModel: (modelId: string) => void;
+  onSelectModel: (_modelId: string) => void;
   getAvailableModels: () => Promise<GroqModelInfo[]>;
   availableModels?: GroqModelInfo[];
   locale?: Locale;

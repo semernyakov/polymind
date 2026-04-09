@@ -31,7 +31,7 @@ interface ChatPanelProps {
   plugin: GroqPluginInterface;
   displayMode: 'tab' | 'sidepanel';
   initialMessages?: Message[];
-  onDisplayModeChange: (mode: 'tab' | 'sidepanel') => void;
+  onDisplayModeChange: (_mode: 'tab' | 'sidepanel') => void;
 }
 
 interface LocalDynamicModelInfo {

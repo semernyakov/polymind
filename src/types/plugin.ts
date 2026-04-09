@@ -15,7 +15,7 @@ export interface GroqPluginInterface extends Plugin {
   resetSettings(): Promise<void>;
   resetSettingsToDefault(): Promise<void>;
 
-  changeDisplayMode(mode: 'tab' | 'sidepanel'): Promise<void>;
+  changeDisplayMode(_mode: 'tab' | 'sidepanel'): Promise<void>;
 
   readonly groqService: GroqService;
   readonly historyService: HistoryService;

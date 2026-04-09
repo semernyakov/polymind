@@ -80,7 +80,7 @@ export function createDiv(container: HTMLElement, className?: string): HTMLDivEl
 export function createButton(
   container: HTMLElement,
   text: string,
-  onClick: (evt: MouseEvent) => void,
+  onClick: (_evt: MouseEvent) => void,
   options: {
     className?: string;
     title?: string;

@@ -30,8 +30,8 @@ const extractThinkContent = (content: string): { thinkContent: string; mainConte
 export const MessageItem: React.FC<MessageItemProps> = React.memo(
   ({
     message,
-    className = '',
-    isCurrentUser = false,
+    className: _className = '',
+    isCurrentUser: _isCurrentUser = false,
     isLastMessage = false,
     onRenderComplete,
     locale = 'en',
