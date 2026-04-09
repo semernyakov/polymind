@@ -733,7 +733,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
       .setDesc(t('settings.loadStepDesc', locale))
       .addDropdown(dd => {
         const stepOptions = [10, 20, 50, 100];
-        stepOptions.forEach(n => dd.addOption(String(n), String(n)));
+        stepOptions.forEach(n => void dd.addOption(String(n), String(n)));
         const current = String(plugin.settings.messageLoadStep ?? 20);
         dd.setValue(current);
         dd.onChange((value: string) => {
