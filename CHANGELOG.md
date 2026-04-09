@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.6] - 2026-04-09
+
+### Fixed
+
+- Fixed ESLint warnings for unused variables by prefixing with underscore
+- Fixed TypeScript type issues in ModelInfoDialog.tsx
+- Restored LLAMA3_70B enum value (incorrectly removed in previous commit)
+- Fixed type casting issues for model IDs in ModelInfoDialog component
+
 ## [1.3.5] - 2025-10-01
 
 ### Added
