@@ -2,7 +2,7 @@
   {
     "id": "polymind",
     "name": "PolyMind",
-    "version": "1.3.5",
+    "version": "1.3.6",
     "author": "Ivan Semernyakov",
     "description": "PolyMind: One Vault. Any Model. Infinite Evolution. AI chat plugin for Obsidian powered by Groq. Multimodal AI chat with one-click model switching, history, and cross-device sync.",
     "repo": "https://github.com/semernyakov/polymind",
