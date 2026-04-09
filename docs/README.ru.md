@@ -1,10 +1,10 @@
-# PolyChat — Плагин для Obsidian
+# PolyMind — Плагин для Obsidian
 
-[![Release](https://img.shields.io/github/v/release/semernyakov/polychat?style=flat-square&label=Release)](https://github.com/semernyakov/polychat/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/semernyakov/polychat/total?style=flat-square&label=Downloads)](https://github.com/semernyakov/polychat/releases)
-[![License](https://img.shields.io/github/license/semernyakov/polychat?style=flat-square&label=License)](LICENSE)
-[![Tests](https://img.shields.io/github/actions/workflow/status/semernyakov/polychat/ci.yml?branch=master&style=flat-square&label=Tests)](https://github.com/semernyakov/polychat/actions/workflows/ci.yml)
-[![NPM](https://img.shields.io/npm/v/groq-poly-chat?style=flat-square&label=NPM)](https://www.npmjs.com/package/groq-poly-chat)
+[![Release](https://img.shields.io/github/v/release/semernyakov/polymind?style=flat-square&label=Release)](https://github.com/semernyakov/polymind/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/semernyakov/polymind/total?style=flat-square&label=Downloads)](https://github.com/semernyakov/polymind/releases)
+[![License](https://img.shields.io/github/license/semernyakov/polymind?style=flat-square&label=License)](LICENSE)
+[![Tests](https://img.shields.io/github/actions/workflow/status/semernyakov/polymind/ci.yml?branch=master&style=flat-square&label=Tests)](https://github.com/semernyakov/polymind/actions/workflows/ci.yml)
+[![NPM](https://img.shields.io/npm/v/polymind?style=flat-square&label=NPM)](https://www.npmjs.com/package/polymind)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa?style=flat-square&label=Contributor%20Covenant)](CODE_OF_CONDUCT.md)
 
 <!-- [![Покрытие](https://img.shields.io/codecov/c/github/semernyakov/groq-chat-plugin?style=flat-square&label=покрытие)](https://codecov.io/gh/semernyakov/groq-chat-plugin) -->
@@ -13,17 +13,17 @@
 
 Плагин для **Obsidian**, который интегрирует **Groq AI** прямо в ваши заметки. Позволяет общаться с разными AI‑моделями, хранить историю, использовать Markdown и управлять параметрами работы моделей.
 
-PolyChat — это мощное расширение чата с поддержкой моделей AI через API Groq. Разработано для гибкости и простоты использования, оно обеспечивает беспрепятственное общение с множеством моделей непосредственно из вашего хранилища.
+PolyMind — это мощное расширение чата с поддержкой моделей AI через API Groq. Разработано для гибкости и простоты использования, оно обеспечивает беспрепятственное общение с множеством моделей непосредственно из вашего хранилища.
 
 ## Скриншоты
 
 **Основной интерфейс**
 
-![polychat-main.png](polychat-main.png)
+![polymind-main.png](polymind-main.png)
 
 **Интерфейс настроек**
 
-![polychat-settings.png](polychat-settings.png)
+![polymind-settings.png](polymind-settings.png)
 
 ## Возможности
 
@@ -62,7 +62,7 @@ PolyChat — это мощное расширение чата с поддерж
 
 1. Откройте настройки Obsidian
 2. Перейдите в раздел Community Plugins и отключите безопасный режим
-3. Нажмите "Обзор" и найдите "PolyChat"
+3. Нажмите "Обзор" и найдите "PolyMind"
 4. Установите плагин
 5. Включите плагин в разделе Community Plugins
 
@@ -76,7 +76,7 @@ PolyChat — это мощное расширение чата с поддерж
 ## Использование
 
 1. Откройте любую заметку
-2. Нажмите на иконку PolyChat в боковой панели
+2. Нажмите на иконку PolyMind в боковой панели
 3. Начните общение с AI
 4. Используйте команды с `/` для дополнительных функций **(не реализовано!)**
 
@@ -89,7 +89,7 @@ PolyChat — это мощное расширение чата с поддерж
 1. Установите плагин BRAT из раздела Community Plugins в Obsidian.
 2. Откройте настройки BRAT.
 3. Нажмите Add Beta Plugin.
-4. Вставьте URL репозитория: https://github.com/semernyakov/polychat
+4. Вставьте URL репозитория: https://github.com/semernyakov/polymind
 5. Подтвердите установку.
 
 BRAT автоматически установит плагин и позволит получать обновления напрямую из репозитория.
@@ -98,7 +98,7 @@ BRAT автоматически установит плагин и позвол�
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/semernyakov/polychat.git
+git clone https://github.com/semernyakov/polymind.git
 
 # Установить зависимости
 npm install
@@ -138,8 +138,8 @@ npm run lint
 
 - 💰 **YooMoney**: [Поддержать через YooMoney](https://yoomoney.ru/fundraise/194GT5A5R07.250321)
   - Принимаем переводы как из России, так и из других стран (через банковские карты)
-- ⭐ **Поставить звезду**: [Добавить звезду на GitHub](https://github.com/semernyakov/polychat)
-- 🐛 **Сообщить о проблеме**: [Создать issue](https://github.com/semernyakov/polychat/issues)
+- ⭐ **Поставить звезду**: [Добавить звезду на GitHub](https://github.com/semernyakov/polymind)
+- 🐛 **Сообщить о проблеме**: [Создать issue](https://github.com/semernyakov/polymind/issues)
 
 ## История изменений
 

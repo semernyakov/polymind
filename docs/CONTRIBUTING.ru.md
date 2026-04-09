@@ -7,7 +7,7 @@
 3. Сделайте изменения и закоммитьте их: `git commit -m "Описание изменений"`.
 4. Отправьте ветку в ваш форк: `git push origin my-change`.
 5. Создайте Pull Request в `master`
-6. Перед крупными изменениями обсудите идею: [Open issue](https://github.com/semernyakov/polychat/issues).
+6. Перед крупными изменениями обсудите идею: [Open issue](https://github.com/semernyakov/polymind/issues).
 
 Пожалуйста, убедитесь, что код работает и форматирование соблюдено.
 
