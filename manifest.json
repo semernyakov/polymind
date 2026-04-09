@@ -3,7 +3,7 @@
   "name": "PolyMind",
   "version": "1.3.6",
   "minAppVersion": "1.8.0",
-  "description": "PolyMind: One Vault. Any Model. Infinite Evolution. Multimodal AI chat with Groq API — one-click model switching, history, and cross-device sync for seamless productivity. OpenAI and Claude support coming soon",
+  "description": "PolyMind: One Vault. Any Model. Infinite Evolution. Multimodal AI chat with Groq API — one-click model switching, history, and cross-device sync for seamless productivity. OpenAI and Claude support coming soon.",
   "author": "Ivan Semernyakov",
   "authorUrl": "https://github.com/semernyakov",
   "isDesktopOnly": false
