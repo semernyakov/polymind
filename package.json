@@ -17,11 +17,15 @@
     "version-minor": "npm version minor"
   },
   "keywords": [
-    "obsidian",
-    "plugin",
-    "polymind",
-    "chat",
-    "ai"
+    "PolyMind",
+    "Groq",
+    "OpenAI",
+    "Claude",
+    "Mistral",
+    "Meta",
+    "Moonshot",
+    "Qwen",
+    "Kimi"
   ],
   "author": "Ivan Semernyakov",
   "license": "MIT",
