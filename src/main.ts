@@ -20,7 +20,7 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
 
   async onload() {
     try {
-      new Notice('PolyMind: Loading…');
+      new Notice('PolyMind is loading…');
 
       await this.loadSettings();
       this.initializeServices();
@@ -45,13 +45,13 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       this.settingsTab = new GroqChatSettingsTab(this.app, this);
       this.addSettingTab(this.settingsTab);
 
-      new Notice('PolyMind: Ready to work');
+      new Notice('PolyMind is ready to work');
 
       // Автоматически открываем интерфейс после полной инициализации workspace
       this.app.workspace.onLayoutReady(() => {
         void this.activateView().catch(error => {
           console.error('Failed to activate PolyMind view:', error);
-          new Notice('PolyMind: Failed to open interface');
+          new Notice('PolyMind failed to open interface');
         });
       });
     } catch (e: unknown) {
@@ -86,7 +86,7 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       await this.changeDisplayMode(this.settings.displayMode);
     } catch (error) {
       console.error('Failed to activate PolyMind view:', error);
-      new Notice('PolyMind: Не удалось открыть интерфейс');
+      new Notice('PolyMind failed to open interface');
       // Try fallback to tab mode if sidepanel fails
       if (this.settings.displayMode === 'sidepanel') {
         try {

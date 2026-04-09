@@ -108,7 +108,7 @@ export class HistoryService {
     } catch (error) {
       console.error('Error saving to localStorage', error);
       if (error instanceof Error && error.name === 'QuotaExceededError') {
-        new Notice('Failed to save history: localStorage quota exceeded.');
+        new Notice('Failed to save history: LocalStorage quota exceeded.');
       }
     }
   }
