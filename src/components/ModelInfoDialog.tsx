@@ -101,7 +101,7 @@ export const ModelInfoDialog: React.FC<ModelInfoDialogProps> = ({
         <div className="groq-dialog-content">
           <div className="groq-model-info">
             <div className="groq-model-info__header">
-              <h3>{fixModelNameCasing(currentModelInfo.name || currentModelInfo.id)}</h3>
+              <h3>{fixModelNameCasing(currentModelInfo.name || (currentModelInfo.id as string))}</h3>
             </div>
 
             <div className="groq-model-info__details">
