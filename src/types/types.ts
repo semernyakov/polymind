@@ -57,6 +57,7 @@ export interface ModelParams {
 // Enum для моделей (расширять по мере необходимости)
 
 export enum GroqModel {
+  // eslint-disable-next-line no-unused-vars
   LLAMA3_70B = 'llama3-70b-8192',
 }
 
