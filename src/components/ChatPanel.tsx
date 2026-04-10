@@ -128,7 +128,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
       if (modelFromSettings && initialModels.find(m => m.id === modelFromSettings)) {
         return modelFromSettings;
       }
-      return initialModels[0]?.id || GroqModel.LLAMA3_70B;
+      return initialModels[0]?.id || GroqModel._LLAMA3_70B;
     };
     const [selectedModel, setSelectedModel] = useState<string>(getInitialModel());
 
@@ -320,7 +320,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
     const toModelInfo = (model: LocalDynamicModelInfo): ModelInfo => ({
       id: (Object.values(GroqModel).includes(model.id as GroqModel)
         ? model.id
-        : GroqModel.LLAMA3_70B) as GroqModel,
+        : GroqModel._LLAMA3_70B) as GroqModel,
       name: fixModelNameCasing(model.name),
       description: model.description || '',
       category: (model.category as ModelCategory) || 'text',

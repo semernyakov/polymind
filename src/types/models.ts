@@ -1,8 +1,8 @@
 import { GroqModel, ModelInfo } from './types';
 
 export const MODEL_INFO: Record<GroqModel, ModelInfo> = {
-  [GroqModel.LLAMA3_70B]: {
-    id: GroqModel.LLAMA3_70B,
+  [GroqModel._LLAMA3_70B]: {
+    id: GroqModel._LLAMA3_70B,
     name: 'Llama 3 70B',
     description: 'Мощная модель общего назначения',
     maxTokens: 8192,
@@ -13,7 +13,7 @@ export const MODEL_INFO: Record<GroqModel, ModelInfo> = {
   },
 };
 
-export const DEFAULT_MODEL = GroqModel.LLAMA3_70B;
+export const DEFAULT_MODEL = GroqModel._LLAMA3_70B;
 
 export const getModelInfo = (modelId: GroqModel): ModelInfo => {
   const info = MODEL_INFO[modelId];

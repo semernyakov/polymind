@@ -43,7 +43,7 @@ export interface GroqChatSettings {
  */
 export const DEFAULT_SETTINGS: Readonly<GroqChatSettings> = Object.freeze({
   apiKey: '',
-  model: 'LLAMA3_70B',
+  model: '_LLAMA3_70B',
   temperature: 0.7,
   maxTokens: 4096,
   historyStorageMethod: 'memory',
