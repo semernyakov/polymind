@@ -65,7 +65,7 @@ export class AuthService {
         new Notice('Valid API key');
         return true;
       } else {
-        new Notice('❌ Invalid API key');
+        new Notice('Invalid API key');
         return false;
       }
     } catch (error) {

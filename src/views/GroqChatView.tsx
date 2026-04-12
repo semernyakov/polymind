@@ -27,7 +27,7 @@ export class GroqChatView extends ItemView {
   }
 
   getDisplayText() {
-    return 'PolyMind';
+    return 'Polymind';
   }
 
   getIcon() {
@@ -38,10 +38,12 @@ export class GroqChatView extends ItemView {
     return this.messages;
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async onOpen() {
     this.renderView();
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async onClose() {
     this.root?.unmount();
   }

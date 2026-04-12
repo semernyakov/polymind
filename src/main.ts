@@ -20,7 +20,7 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
 
   async onload() {
     try {
-      new Notice('PolyMind is loading…');
+      new Notice('Polymind is loading…');
 
       await this.loadSettings();
       this.initializeServices();
@@ -41,23 +41,23 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       });
 
       this.addCommands();
-      this.addRibbonIcon('message-square', 'PolyMind', () => this.activateView());
+      this.addRibbonIcon('message-square', 'Polymind', () => this.activateView());
       this.settingsTab = new GroqChatSettingsTab(this.app, this);
       this.addSettingTab(this.settingsTab);
 
-      new Notice('PolyMind is ready to work');
+      new Notice('Polymind is ready to work');
 
       // Автоматически открываем интерфейс после полной инициализации workspace
       this.app.workspace.onLayoutReady(() => {
         void this.activateView().catch(error => {
-          console.error('Failed to activate PolyMind view:', error);
-          new Notice('PolyMind failed to open interface');
+          console.error('Failed to activate Polymind view:', error);
+          new Notice('Polymind failed to open interface');
         });
       });
     } catch (e: unknown) {
       const errorMessage = e instanceof Error ? e.message : String(e);
-      new Notice(`PolyMind: Loading error — ${errorMessage}`);
-      console.error('PolyMind plugin loading error:', e);
+      new Notice(`Polymind: Loading error — ${errorMessage}`);
+      console.error('Polymind plugin loading error:', e);
     }
   }
 
@@ -85,8 +85,8 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
     try {
       await this.changeDisplayMode(this.settings.displayMode);
     } catch (error) {
-      console.error('Failed to activate PolyMind view:', error);
-      new Notice('PolyMind failed to open interface');
+      console.error('Failed to activate Polymind view:', error);
+      new Notice('Polymind failed to open interface');
       // Try fallback to tab mode if sidepanel fails
       if (this.settings.displayMode === 'sidepanel') {
         try {
