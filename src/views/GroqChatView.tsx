@@ -38,14 +38,14 @@ export class GroqChatView extends ItemView {
     return this.messages;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  // Required by ItemView base class signature
+  // eslint-disable-next-line
+  // Base class requires Promise<void> return type
   async onOpen() {
     this.renderView();
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  // Required by ItemView base class signature
+  // eslint-disable-next-line
+  // Base class requires Promise<void> return type
   async onClose() {
     this.root?.unmount();
   }
