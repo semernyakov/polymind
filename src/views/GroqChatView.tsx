@@ -38,15 +38,13 @@ export class GroqChatView extends ItemView {
     return this.messages;
   }
 
-  // eslint-disable-next-line
-  // Base class requires Promise<void> return type
   async onOpen() {
+    await Promise.resolve();
     this.renderView();
   }
 
-  // eslint-disable-next-line
-  // Base class requires Promise<void> return type
   async onClose() {
+    await Promise.resolve();
     this.root?.unmount();
   }
 
