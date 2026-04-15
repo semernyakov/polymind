@@ -29,10 +29,10 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       if (this.settings.apiKey) {
         const isValid = await this.groqService.validateApiKey(this.settings.apiKey);
         if (!isValid) {
-          new Notice('Invalid api key. Please update your api key in settings.');
+          new Notice('Invalid API key. Please update your API key in Settings.');
         }
       } else {
-        new Notice('Please set your Groq api key in settings.');
+        new Notice('Please set your Groq API key in Settings.');
       }
 
       this.registerView(VIEW_TYPE_GROQ_CHAT, leaf => {
@@ -57,7 +57,7 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
     } catch (e: unknown) {
       const errorMessage = e instanceof Error ? e.message : String(e);
       new Notice(`Polymind: Loading error — ${errorMessage}`);
-      console.error('Polymind plugin loading error:', e);
+      console.error('Polymind Plugin loading error:', e);
     }
   }
 
