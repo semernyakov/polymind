@@ -29,10 +29,10 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       if (this.settings.apiKey) {
         const isValid = await this.groqService.validateApiKey(this.settings.apiKey);
         if (!isValid) {
-          new Notice('Invalid API key. Please update your API key in Settings.');
+          new Notice('Please update your API key in settings.');
         }
       } else {
-        new Notice('Please set your Groq API key in Settings.');
+        new Notice('Please set your API key in settings.');
       }
 
       this.registerView(VIEW_TYPE_GROQ_CHAT, leaf => {
