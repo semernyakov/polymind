@@ -3,7 +3,7 @@ import { GroqPluginInterface } from '../types/plugin';
 import { Message } from '../types/types';
 import { MessageUtils } from '../utils/messageUtils';
 import { MessageList, MessageListHandles } from './MessageList';
-import { ModelSelector } from './ModelSelector';
+import { GroupedModelSelector } from './GroupedModelSelector';
 import { MessageInput } from './MessageInput';
 import { SupportDialog } from './SupportDialog';
 import {
@@ -203,13 +203,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
     }, []);
 
     const fetchAvailableModels = useCallback(async (): Promise<LocalDynamicModelInfo[]> => {
-      if (!plugin.groqService.getAvailableModelsWithLimits) return [];
-      const { models, rateLimits } = await plugin.groqService.getAvailableModelsWithLimits();
-      setRateLimits(rateLimits || {});
+      const models = await plugin.providers.getAllModels();
+      // Groq rate limits are still surfaced from the Groq service directly.
+      setRateLimits(plugin.groqService.rateLimits || {});
       const filtered = models.filter((m: GroqModelInfo) => m.isActive !== false);
       setAvailableModels(filtered.map((m: GroqModelInfo) => ({ ...m })));
       return filtered;
-    }, [plugin.groqService]);
+    }, [plugin.providers, plugin.groqService]);
 
     useEffect(() => {
       void fetchAvailableModels();
@@ -279,7 +279,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
           messageListRef.current?.scrollToBottom({ smooth: false });
         };
 
-        const assistantMessage = await plugin.groqService.sendMessage(
+        // Ensure the provider registry's model index is populated before routing.
+        // This is a cheap no-op once models have already been loaded (cached by
+        // each provider), and guards against sending before the mount-time
+        // fetchAvailableModels() call has resolved.
+        await plugin.providers.getAllModels();
+        const provider = plugin.providers.routeForModel(selectedModel);
+        const assistantMessage = await provider.sendMessage(
           trimmedValue,
           selectedModel,
           handleChunk,
@@ -355,7 +361,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
       <div className={`groq-container groq-chat groq-chat--${displayMode}`} ref={containerRef}>
         <div className="groq-chat__header">
           <div className="groq-chat__header-left">
-            <ModelSelector
+            <GroupedModelSelector
               plugin={plugin}
               selectedModel={selectedModel}
               onSelectModel={handleModelChange}
