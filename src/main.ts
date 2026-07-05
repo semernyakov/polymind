@@ -5,6 +5,8 @@ import { DEFAULT_SETTINGS, GroqChatSettings } from './settings/GroqChatSettings'
 import { AuthService } from './services/authService';
 import { GroqService } from './services/groqService';
 import { HistoryService } from './services/historyService';
+import { OpenRouterProvider } from './services/providers/OpenRouterProvider';
+import { ProviderRegistry } from './services/providers/ProviderRegistry';
 import { GroqChatSettingsTab } from './settings/GroqChatSettingsTab';
 import { GroqPluginInterface } from './types/plugin';
 import './styles.css';
@@ -14,6 +16,8 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
   defaultSettings: Readonly<GroqChatSettings> = { ...DEFAULT_SETTINGS };
   authService!: AuthService;
   groqService!: GroqService;
+  openRouterProvider!: OpenRouterProvider;
+  providers!: ProviderRegistry;
   historyService!: HistoryService;
   private currentLeaf: WorkspaceLeaf | null = null;
   private settingsTab: GroqChatSettingsTab | null = null;
@@ -63,6 +67,8 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
 
   private initializeServices(): void {
     this.groqService = new GroqService(this);
+    this.openRouterProvider = new OpenRouterProvider(this);
+    this.providers = new ProviderRegistry(this.groqService, this.openRouterProvider);
     this.authService = new AuthService(this.groqService, this);
     this.historyService = new HistoryService(this);
   }

@@ -18,6 +18,8 @@ export interface GroqPluginInterface extends Plugin {
   changeDisplayMode(_mode: 'tab' | 'sidepanel'): Promise<void>;
 
   readonly groqService: GroqService;
+  readonly openRouterProvider: import('../services/providers/OpenRouterProvider').OpenRouterProvider;
+  readonly providers: import('../services/providers/ProviderRegistry').ProviderRegistry;
   readonly historyService: HistoryService;
   readonly authService: AuthService;
 }
