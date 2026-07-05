@@ -116,10 +116,23 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
-    // Только активные модели
-    const initialModels: LocalDynamicModelInfo[] = (plugin.settings.groqAvailableModels || [])
-      .filter((m: GroqModelInfo) => m.isActive !== false)
-      .map((m: GroqModelInfo) => ({ ...m }));
+    // Только активные модели (Groq + OpenRouter, чтобы сохранённый выбор модели
+    // OpenRouter тоже мог быть найден при монтировании панели)
+    const initialModels: LocalDynamicModelInfo[] = (() => {
+      const combined = [
+        ...(plugin.settings.groqAvailableModels || []),
+        ...(plugin.settings.openRouterAvailableModels || []),
+      ];
+      const seen = new Set<string>();
+      const deduped = combined.filter((m: GroqModelInfo) => {
+        if (seen.has(m.id)) return false;
+        seen.add(m.id);
+        return true;
+      });
+      return deduped
+        .filter((m: GroqModelInfo) => m.isActive !== false)
+        .map((m: GroqModelInfo) => ({ ...m }));
+    })();
     const [availableModels, setAvailableModels] = useState<LocalDynamicModelInfo[]>(initialModels);
 
     // Выбираем модель из настроек, если она валидна, иначе первую активную

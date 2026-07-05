@@ -59,7 +59,9 @@ export class OpenRouterProvider implements ChatProvider {
     rateLimits: RateLimitsType;
   }> {
     if (!forceRefresh) {
-      return { models: openRouterModels, rateLimits: {} };
+      const saved = this._plugin.settings.openRouterAvailableModels;
+      const models = Array.isArray(saved) && saved.length > 0 ? saved : openRouterModels;
+      return { models, rateLimits: {} };
     }
     try {
       const res = await requestUrl({

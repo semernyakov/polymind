@@ -18,6 +18,9 @@ export class ProviderRegistry {
       this.groq.getModelsWithLimits(forceRefresh),
       this.openrouter.getModelsWithLimits(forceRefresh),
     ]);
+    // Dedup by `id` only (not provider+id): `id` is the <select> option value and must be
+    // globally unique across providers; Groq ids never contain '/' while OpenRouter ids always
+    // do (e.g. "openai/gpt-4o"), so cross-provider collisions cannot occur in practice.
     const seen = new Set<string>();
     const merged: GroqModelInfo[] = [];
     this.modelIndex.clear();
