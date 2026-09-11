@@ -11,9 +11,9 @@
 
 [Русская версия](docs/README.ru.md)
 
-A plugin for Obsidian that integrates Groq AI capabilities directly into your notes.
+PolyMind is an Obsidian plugin for **Groq AI** with automatic model refresh in real time. It stores chat history, supports Markdown, and helps manage note context and interface settings.
 
-PolyMind is a powerful chat extension with support for AI models via the Groq API. Designed for flexibility and ease of use, it enables seamless communication with multiple models directly from your vault.
+> Current support: **Groq** only. **OpenRouter** is not enabled in this build yet, but adding a second provider is planned for a future update.
 
 ## Screenshots
 
@@ -29,7 +29,7 @@ PolyMind is a powerful chat extension with support for AI models via the Groq AP
 
 | Category              | Features                                                                                                                                                                                                      |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Support for text, vision (image), coder, and audio models |
+| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Current focus: text and code chat workflows |
 | **🌐 Localization**   | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                              |
 | **📝 Content**        | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages          |
 
@@ -41,23 +41,38 @@ PolyMind is a powerful chat extension with support for AI models via the Groq AP
 
 ## Project Status
 
-This project is actively maintained and developed. New features are added regularly, including dynamic model updates, vision/coder/audio support, and improved UI/UX. Automated tests and advanced model integrations (audio/image) are planned. Feedback and contributions are welcome!
+This project is actively maintained and developed. The current implementation is focused on text and code chat workflows via the Groq API, note-context enrichment, and history management. In the current release, only two primary modes are supported: text/code chat and note-context enrichment. Image and audio input/output are not supported, and these capabilities remain work in progress.
 
-### Supported Models (Grouped by Developer)
+### Current model support
 
-| Developer           | Models                                                                                                                                    | Purpose                                                                                         |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| **Meta**            | Llama 4 Scout 17B 16E Instruct<br>Llama Prompt Guard 2 22M<br>Llama Prompt Guard 2 86M<br>Llama 3.3 70B Versatile<br>Llama 3.1 8B Instant | Text Generation<br>Content Filtering<br>Content Filtering<br>General Purpose<br>General Purpose |
-| **OpenAI**          | Whisper Large v3 Turbo<br>Community OSS Model (20B)<br>Whisper Large v3<br>Community OSS Model (120B)                                     | Speech-to-Text<br>General Purpose<br>Speech-to-Text<br>General Purpose                          |
-| **Moonshot AI**     | Kimi K2 Instruct<br>Kimi K2 Instruct (0905)                                                                                               | General Purpose                                                                                 |
-| **Alibaba Cloud**   | Qwen3 32B                                                                                                                                 | General Purpose                                                                                 |
-| **SDAIA**           | Allam 2 7B                                                                                                                                | Text Generation (Arabic)                                                                        |
-| **Groq**            | Groq Compound<br>Groq Compound Mini                                                                                                       | General Purpose                                                                                 |
-| **Canopy Labs**     | canopylabs/orpheus Arabic saudi<br>canopylabs/orpheus v1 english                                                                          | Text-to-Speech (Arabic)<br>Text-to-Speech (English)                                             |
-| **OpenAI (Safety)** | OpenAI/gpt oss safeguard 20b<br>OpenAI/gpt oss 120b                                                                                       | Content Safety<br>General Purpose                                                               |
+At the moment, PolyMind is primarily aimed at text-based chat models and code-oriented workflows. The plugin intentionally filters out non-chat entries such as image and audio models from the UI, because those multimodal capabilities are not supported yet.
 
-> _Last updated: March 26, 2026_ <br>
-> See plugin settings for the full up-to-date list. Descriptions will be updated as soon as they become available.
+The plugin does not maintain a fixed built-in model list. Instead, it requests the current model catalog from the provider at runtime and refreshes the available model list in the settings UI.
+
+This means:
+
+- model availability can change over time without a plugin release
+- new models appear automatically after a refresh
+- some models may be temporarily unavailable or hidden by the provider
+- multimodal models (image/audio) are not currently supported even if the provider exposes them
+- the list shown in the app is the source of truth, not a static README table
+
+### Model availability
+
+The plugin does not maintain a fixed built-in model list. Instead, it requests the current model catalog from the provider at runtime and refreshes the available model list in the settings UI.
+
+This means:
+
+- model availability can change over time without a plugin release
+- new models appear automatically after a refresh
+- some models may be temporarily unavailable or hidden by the provider
+- the list shown in the app is the source of truth, not a static README table
+
+To refresh the list, open plugin settings and use the model refresh button. The app groups models by owner and filters out non-chat entries such as speech, image, and audio models when relevant.
+
+> The list below is only an example and may be outdated by the time you read it. Always check the in-app list in the plugin settings.
+
+> The current release supports only text models. Image and audio support is still in progress, and additional provider support is planned for future releases.
 
 ## Installation
 
@@ -75,6 +90,20 @@ This project is actively maintained and developed. New features are added regula
 4. Configure additional settings as needed (Note: Settings have been updated, including options for default display mode and history storage. See plugin settings for details.)
 
 Under **Note context** you can control whether the chat opens automatically when Obsidian starts (`Open chat on startup`), whether `[[wikilinks]]` in your messages are expanded into the actual note content (`Expand [[links]] in your message`), whether all open notes are appended as context to every message (`Include all open notes as context`), and the per-note character limit (`Max characters per note`, `0` = whole note).
+
+### How model refresh works
+
+The plugin does not ship with a static, hand-maintained model list. Instead, it fetches the current model catalogue from Groq when needed and refreshes the list in settings.
+
+Typical flow:
+
+1. Open plugin settings.
+2. Click the refresh button next to the model selector.
+3. The app calls the provider API and loads the current model list.
+4. The UI groups models by owner and filters non-chat entries when applicable.
+5. The selected model is saved back into plugin settings.
+
+Because the list is provider-driven, model availability can change without a new plugin release. If a model disappears, is renamed, or is temporarily unavailable, the next refresh updates the list automatically.
 
 ## Usage
 

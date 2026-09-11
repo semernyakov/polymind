@@ -47,7 +47,8 @@ const translations: Record<Locale, Record<string, string>> = {
     'settings.includeOpenNotesDesc':
       'Автоматически добавлять содержимое всех открытых вкладок к каждому сообщению.',
     'settings.maxContextChars': 'Макс. символов на заметку',
-    'settings.maxContextCharsDesc': '0 = включать заметку целиком.',
+    'settings.maxContextCharsDesc':
+      'По умолчанию: 0. Это значит, что берётся весь контекст заметки. Чем больше число, тем короче кусок текста из заметки, который добавляется в запрос.',
     'settings.historyHeading': '🕓 История чата',
     'settings.default10': 'По умолчанию: 10',
     'settings.default20': 'По умолчанию: 20',
@@ -187,6 +188,18 @@ const translations: Record<Locale, Record<string, string>> = {
     'settings.tailLimitDesc': 'How many last messages to show without initial scrolling',
     'settings.loadStepName': 'History load step',
     'settings.loadStepDesc': 'How many messages to load when clicking the button or scrolling up',
+    'settings.noteContextHeading': '📄 Note context',
+    'settings.openOnStartup': 'Open chat on startup',
+    'settings.openOnStartupDesc': 'Automatically open the chat panel when Obsidian starts.',
+    'settings.expandWikilinks': 'Expand [[links]] in messages',
+    'settings.expandWikilinksDesc':
+      'Replace [[Note]] with the real note content before sending the message.',
+    'settings.includeOpenNotes': 'Use all open notes as context',
+    'settings.includeOpenNotesDesc':
+      'Automatically add the contents of all open tabs to every message.',
+    'settings.maxContextChars': 'Max characters per note',
+    'settings.maxContextCharsDesc':
+      'Default = 0. This means the plugin uses the entire note as context. Higher values trim each note to that many characters before sending it.',
     'settings.historyHeading': '🕓 Chat History',
     'settings.default10': 'Default: 10',
     'settings.default20': 'Default: 20',
