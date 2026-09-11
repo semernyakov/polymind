@@ -27,17 +27,17 @@ PolyMind is a powerful chat extension with support for AI models via the Groq AP
 
 ## Features
 
-| Category                | Features                                                                                                                                                                                                      |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **🤖 AI Integration**   | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Support for text, vision (image), coder, and audio models |
-| **🌐 Localization**     | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                              |
-| **📝 Content**          | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages                                                                  |
+| Category              | Features                                                                                                                                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Support for text, vision (image), coder, and audio models |
+| **🌐 Localization**   | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                              |
+| **📝 Content**        | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages          |
 
-| **📱 Platform**         | Mobile support<br>Configurable default display mode (tab or side panel)                                                                                                                                       |
-| **⚙️ Model Management** | Custom model selection with grouping by model owner<br>Batch model activation/deactivation<br>Temperature and max tokens configuration                                                                        |
-| **💾 Storage**          | Chat history with multiple storage options:<br>• In-memory storage<br>• localStorage<br>• IndexedDB<br>• File-based storage<br>Configurable history length and loading behavior                               |
-| **🔐 Security**         | Secure API key storage<br>Hotkeys and advanced settings                                                                                                                                                       |
-| **💝 Community**        | Support dialog with donation links<br>Open source and community-driven                                                                                                                                        |
+| **📱 Platform** | Mobile support<br>Configurable default display mode (tab or side panel) |
+| **⚙️ Model Management** | Custom model selection with grouping by model owner<br>Batch model activation/deactivation<br>Temperature and max tokens configuration |
+| **💾 Storage** | Chat history with multiple storage options:<br>• In-memory storage<br>• localStorage<br>• IndexedDB<br>• File-based storage<br>Configurable history length and loading behavior |
+| **🔐 Security** | Secure API key storage<br>Hotkeys and advanced settings |
+| **💝 Community** | Support dialog with donation links<br>Open source and community-driven |
 
 ## Project Status
 

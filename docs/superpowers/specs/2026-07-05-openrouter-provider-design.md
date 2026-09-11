@@ -29,7 +29,7 @@ Groq, с реальной отправкой сообщений. OpenRouter — 
   переиспользуема.
 - `groq-sdk ^0.19.0` **поддерживает `baseURL`** (`ClientOptions.baseURL`) — значит
   OpenRouterProvider может использовать тот же клиент с `baseURL:
-  https://openrouter.ai/api/v1` и переиспользовать стриминг. Отдельный SSE-код не нужен.
+https://openrouter.ai/api/v1` и переиспользовать стриминг. Отдельный SSE-код не нужен.
 - Модели хранятся в `settings.groqAvailableModels` (`data.json`), обновляются из Groq
   API кнопкой refresh (полная перезапись — каталоги надо домерживать при построении).
 - Потребители сервиса (точки роутинга): `main.ts` (создание сервиса, валидация ключа),
@@ -173,6 +173,7 @@ groq-провайдера для обратной совместимости с�
 ## Файлы (ожидаемые изменения)
 
 Новые:
+
 - `src/services/providers/types.ts`
 - `src/services/providers/GroqProvider.ts`
 - `src/services/providers/OpenRouterProvider.ts`
@@ -181,6 +182,7 @@ groq-провайдера для обратной совместимости с�
 - тесты: `ProviderRegistry.test.ts`, `openRouterModels.test.ts`
 
 Изменяемые:
+
 - `src/settings/GroqChatSettings.ts` (поля + `provider`)
 - `src/settings/GroqChatSettingsTab.ts` (провайдер-центричный `display()`)
 - `src/services/groqService.ts` (реэкспорт/адаптер к `GroqProvider`)

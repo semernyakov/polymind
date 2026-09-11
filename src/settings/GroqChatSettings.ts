@@ -58,6 +58,10 @@ export const DEFAULT_SETTINGS: Readonly<GroqChatSettings> = Object.freeze({
   maxHistoryLength: 20,
   notePath: 'polymind-history.md',
   displayMode: 'tab', // Значение по умолчанию
+  openOnStartup: false,
+  expandWikilinks: false,
+  includeOpenNotes: false,
+  maxContextChars: 0,
   messageTailLimit: 10,
   messageLoadStep: 20,
 });

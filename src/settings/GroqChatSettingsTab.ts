@@ -110,7 +110,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
     this.addHistorySettings(locale);
     // --- Интерфейс ---
     new Setting(this.containerEl).setName(t('settings.interface', locale)).setHeading();
-    
+
     // this.addDisplayModeSetting(locale); // Метод отсутствует
     this.addTailSettings(locale);
 
@@ -248,7 +248,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
       );
     return wrapper;
   }
-private addNoteContextSettings(locale: Locale): void {
+  private addNoteContextSettings(locale: Locale): void {
     new Setting(this.containerEl)
       .setName(t('settings.openOnStartup', locale))
       .setDesc(t('settings.openOnStartupDesc', locale))

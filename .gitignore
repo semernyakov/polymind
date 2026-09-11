@@ -30,6 +30,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+.superpowers/*
+.claude/*
 
 # OS generated files
 .DS_Store

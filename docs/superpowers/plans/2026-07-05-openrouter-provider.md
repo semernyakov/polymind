@@ -24,10 +24,12 @@
 ### Task 1: Data model — `provider` field + OpenRouter settings
 
 **Files:**
+
 - Modify: `src/settings/GroqChatSettings.ts`
 - Modify: `src/services/providers/types.ts` (Create)
 
 **Interfaces:**
+
 - Produces: `type ProviderId = 'groq' | 'openrouter'`; `GroqModelInfo.provider?: ProviderId`; settings fields `openRouterApiKey: string`, `openRouterAvailableModels?: GroqModelInfo[]`, `openRouterRateLimits?: RateLimitsType`; `ChatProvider` interface.
 
 - [ ] **Step 1: Create the provider types file**
@@ -98,10 +100,12 @@ git commit -m "feat(providers): add provider field and OpenRouter settings/ChatP
 ### Task 2: Curated OpenRouter catalog + merge helper
 
 **Files:**
+
 - Create: `src/data/openRouterModels.ts`
 - Test: `src/data/openRouterModels.test.ts`
 
 **Interfaces:**
+
 - Consumes: `GroqModelInfo` (Task 1).
 - Produces: `export const openRouterModels: GroqModelInfo[]`; `export function mergeOpenRouterModels(curated: GroqModelInfo[], apiModels: GroqModelInfo[]): GroqModelInfo[]` — returns curated followed by API models not already present by `id`, no duplicates.
 
@@ -134,7 +138,12 @@ describe('mergeOpenRouterModels', () => {
       { id: 'anthropic/claude', name: 'Claude', provider: 'openrouter' as const, isActive: true },
     ];
     const api = [
-      { id: 'anthropic/claude', name: 'Claude dup', provider: 'openrouter' as const, isActive: true },
+      {
+        id: 'anthropic/claude',
+        name: 'Claude dup',
+        provider: 'openrouter' as const,
+        isActive: true,
+      },
       { id: 'x/new', name: 'New', provider: 'openrouter' as const, isActive: true },
     ];
     const out = mergeOpenRouterModels(curated, api);
@@ -161,14 +170,70 @@ import type { GroqModelInfo } from '../settings/GroqChatSettings';
  * догружается кнопкой в настройках через mergeOpenRouterModels.
  */
 export const openRouterModels: GroqModelInfo[] = [
-  { id: 'anthropic/claude-3.7-sonnet', name: 'Claude 3.7 Sonnet', provider: 'openrouter', isActive: true, developer: { name: 'Anthropic' }, owned_by: 'anthropic' },
-  { id: 'anthropic/claude-3.5-haiku', name: 'Claude 3.5 Haiku', provider: 'openrouter', isActive: true, developer: { name: 'Anthropic' }, owned_by: 'anthropic' },
-  { id: 'google/gemini-2.5-pro', name: 'Gemini 2.5 Pro', provider: 'openrouter', isActive: true, developer: { name: 'Google' }, owned_by: 'google' },
-  { id: 'google/gemini-2.5-flash', name: 'Gemini 2.5 Flash', provider: 'openrouter', isActive: true, developer: { name: 'Google' }, owned_by: 'google' },
-  { id: 'openai/gpt-4o', name: 'GPT-4o', provider: 'openrouter', isActive: true, developer: { name: 'OpenAI' }, owned_by: 'openai' },
-  { id: 'openai/gpt-4o-mini', name: 'GPT-4o mini', provider: 'openrouter', isActive: true, developer: { name: 'OpenAI' }, owned_by: 'openai' },
-  { id: 'meta-llama/llama-3.3-70b-instruct', name: 'Llama 3.3 70B', provider: 'openrouter', isActive: true, developer: { name: 'Meta' }, owned_by: 'meta-llama' },
-  { id: 'deepseek/deepseek-chat', name: 'DeepSeek V3', provider: 'openrouter', isActive: true, developer: { name: 'DeepSeek' }, owned_by: 'deepseek' },
+  {
+    id: 'anthropic/claude-3.7-sonnet',
+    name: 'Claude 3.7 Sonnet',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'Anthropic' },
+    owned_by: 'anthropic',
+  },
+  {
+    id: 'anthropic/claude-3.5-haiku',
+    name: 'Claude 3.5 Haiku',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'Anthropic' },
+    owned_by: 'anthropic',
+  },
+  {
+    id: 'google/gemini-2.5-pro',
+    name: 'Gemini 2.5 Pro',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'Google' },
+    owned_by: 'google',
+  },
+  {
+    id: 'google/gemini-2.5-flash',
+    name: 'Gemini 2.5 Flash',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'Google' },
+    owned_by: 'google',
+  },
+  {
+    id: 'openai/gpt-4o',
+    name: 'GPT-4o',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'OpenAI' },
+    owned_by: 'openai',
+  },
+  {
+    id: 'openai/gpt-4o-mini',
+    name: 'GPT-4o mini',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'OpenAI' },
+    owned_by: 'openai',
+  },
+  {
+    id: 'meta-llama/llama-3.3-70b-instruct',
+    name: 'Llama 3.3 70B',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'Meta' },
+    owned_by: 'meta-llama',
+  },
+  {
+    id: 'deepseek/deepseek-chat',
+    name: 'DeepSeek V3',
+    provider: 'openrouter',
+    isActive: true,
+    developer: { name: 'DeepSeek' },
+    owned_by: 'deepseek',
+  },
 ];
 
 export function mergeOpenRouterModels(
@@ -200,10 +265,12 @@ git commit -m "feat(providers): curated OpenRouter model catalog + merge helper"
 ### Task 3: OpenRouterProvider
 
 **Files:**
+
 - Create: `src/services/providers/OpenRouterProvider.ts`
 - Test: `src/services/providers/OpenRouterProvider.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ChatProvider`, `ProviderId` (Task 1); `openRouterModels`, `mergeOpenRouterModels` (Task 2); `GroqPluginInterface` (`src/types/plugin.ts`).
 - Produces: `class OpenRouterProvider implements ChatProvider` with `id = 'openrouter'`. `handleError(error)` maps messages containing `401`→`invalidApiKey`, `429`→`rateLimitExceeded`, `500`→`serverError`, `network`→`networkError`, else passthrough.
 
@@ -217,7 +284,11 @@ import { describe, it, expect, vi } from 'vitest';
 vi.mock('../../localization', () => ({
   t: (key: string) => key,
 }));
-vi.mock('groq-sdk', () => ({ Groq: class { constructor(_o: unknown) {} } }));
+vi.mock('groq-sdk', () => ({
+  Groq: class {
+    constructor(_o: unknown) {}
+  },
+}));
 
 import { OpenRouterProvider } from './OpenRouterProvider';
 
@@ -406,11 +477,13 @@ git commit -m "feat(providers): OpenRouterProvider with streaming + curated/API 
 ### Task 4: GroqProvider (refactor GroqService to ChatProvider)
 
 **Files:**
+
 - Create: `src/services/providers/GroqProvider.ts`
 - Modify: `src/services/groqService.ts` (re-export)
 - Test: `src/services/providers/GroqProvider.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ChatProvider`, `ProviderId` (Task 1).
 - Produces: `class GroqProvider implements ChatProvider` (`id='groq'`), whose `getModelsWithLimits` tags every model with `provider: 'groq'`. `src/services/groqService.ts` re-exports `GroqProvider as GroqService` so existing imports keep working.
 
@@ -472,10 +545,12 @@ git commit -m "refactor(providers): GroqService -> GroqProvider implementing Cha
 ### Task 5: ProviderRegistry
 
 **Files:**
+
 - Create: `src/services/providers/ProviderRegistry.ts`
 - Test: `src/services/providers/ProviderRegistry.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ChatProvider`, `ProviderId` (Task 1); `GroqProvider` (Task 4); `OpenRouterProvider` (Task 3).
 - Produces: `class ProviderRegistry` with `getProvider(id: ProviderId): ChatProvider`, `routeForModel(modelId: string): ChatProvider` (looks up the model in the merged list; defaults to groq when unknown), `getAllModels(forceRefresh?: boolean): Promise<GroqModelInfo[]>` (concatenates both providers' models, dedup by `id`).
 
@@ -486,7 +561,11 @@ Create `src/services/providers/ProviderRegistry.test.ts`:
 ```ts
 import { describe, it, expect, vi } from 'vitest';
 vi.mock('../../localization', () => ({ t: (k: string) => k }));
-vi.mock('groq-sdk', () => ({ Groq: class { constructor(_o: unknown) {} } }));
+vi.mock('groq-sdk', () => ({
+  Groq: class {
+    constructor(_o: unknown) {}
+  },
+}));
 
 import { ProviderRegistry } from './ProviderRegistry';
 import type { ChatProvider } from './types';
@@ -498,7 +577,14 @@ function stub(id: 'groq' | 'openrouter', models: GroqModelInfo[]): ChatProvider 
     updateApiKey: () => {},
     validateKey: async () => true,
     getModelsWithLimits: async () => ({ models, rateLimits: {} }),
-    sendMessage: async () => ({ id: '1', role: 'assistant', content: '', timestamp: 0, isStreaming: false, hasThinkContent: false }),
+    sendMessage: async () => ({
+      id: '1',
+      role: 'assistant',
+      content: '',
+      timestamp: 0,
+      isStreaming: false,
+      hasThinkContent: false,
+    }),
     handleError: (e: unknown) => (e instanceof Error ? e : new Error('x')),
   };
 }
@@ -591,10 +677,12 @@ git commit -m "feat(providers): ProviderRegistry routing + merged model list"
 ### Task 6: Wire the registry into the plugin
 
 **Files:**
+
 - Modify: `src/types/plugin.ts`
 - Modify: `src/main.ts`
 
 **Interfaces:**
+
 - Consumes: `ProviderRegistry` (Task 5), `OpenRouterProvider` (Task 3), `GroqService`/`GroqProvider` (Task 4).
 - Produces: `plugin.providers: ProviderRegistry` and `plugin.openRouterProvider: OpenRouterProvider`; `plugin.groqService` stays as the Groq provider instance.
 
@@ -647,10 +735,12 @@ git commit -m "feat(providers): register ProviderRegistry and OpenRouterProvider
 ### Task 7: Route message send + unified model list in chat
 
 **Files:**
+
 - Modify: `src/components/ChatPanel.tsx`
 - Modify: `src/components/GroupedModelSelector.tsx`
 
 **Interfaces:**
+
 - Consumes: `plugin.providers` (Task 6).
 - Produces: chat send goes through `plugin.providers.routeForModel(model).sendMessage(...)`; model list comes from `plugin.providers.getAllModels()`; selector groups by `provider`.
 
@@ -694,10 +784,12 @@ git commit -m "feat(chat): route send by provider + unified model list grouped b
 ### Task 8: Provider-centric settings UI + localization
 
 **Files:**
+
 - Modify: `src/settings/GroqChatSettingsTab.ts`
 - Modify: `src/localization.ts`
 
 **Interfaces:**
+
 - Consumes: `plugin.openRouterProvider` (Task 6), `plugin.providers` (Task 6).
 - Produces: settings sections `Groq` and `OpenRouter`; new locale keys `settings.openRouterHeading`, `openRouterApiKey`, `openRouterKeyMissing`, `settings.loadOpenRouterModels` for `ru` and `en`.
 

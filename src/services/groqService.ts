@@ -106,10 +106,10 @@ export class GroqService implements GroqServiceMethods {
         new Notice(t('rateLimitExceeded'));
         throw new Error(t('rateLimitsExhausted'));
       }
-      
+
       // Enrich the message with note context (wikilink expansion / open notes)
-      content = await buildNoteContext(this.plugin.app, content, this.plugin.settings);
-      
+      content = await buildNoteContext(this._plugin.app, content, this._plugin.settings);
+
       const streamResponse = await this.retryRequest(() =>
         this.client.chat.completions.create({
           model,

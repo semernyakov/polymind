@@ -1,5 +1,5 @@
 // Usage: node version-bump.js
-import { readFileSync, writeFileSync } from 'fs';
+const { readFileSync, writeFileSync } = require('fs');
 
 const targetVersion = process.env.npm_package_version;
 
