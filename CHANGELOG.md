@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.3.7] - 2026-09-11
+
+### Added
+
+- Added note-context settings: startup open toggle, wikilink expansion, include open notes, per-note character limit
+- Improved model refresh and settings flow for dynamic provider model lists
+- Documented the safe contributor workflow and clarified default PR-based collaboration rules
+
+### Fixed
+
+- Fixed broken note-context logic caused by an invalid `_plugin` reference in `GroqService`
+- Restored missing default settings required for note context and startup behavior
+- Hardened settings normalization so new fields are merged correctly across saved user configs
+- Fixed the CommonJS version bump script and corrected release metadata references
+- Restored the GitHub release for 1.3.7 and normalized the repository metadata back to `semernyakov/polymind`
+
+### Changed
+
+- Updated README and Russian docs to clarify current provider scope: Groq is the active supported provider, and OpenRouter support is planned for a future release
+- Updated release notes and contributor docs to reflect the current release and workflow expectations
+
 ## [1.3.6] - 2026-04-09
 
 ### Fixed
