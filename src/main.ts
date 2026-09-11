@@ -48,7 +48,9 @@ export default class GroqChatPlugin extends Plugin implements GroqPluginInterfac
       new Notice('Polymind is ready to work');
 
       // Автоматически открываем интерфейс после полной инициализации workspace
+      // (отключается настройкой openOnStartup)
       this.app.workspace.onLayoutReady(() => {
+        if (!this.settings.openOnStartup) return;
         void this.activateView().catch(error => {
           console.error('Failed to activate Polymind view:', error);
           new Notice('Polymind failed to open interface');

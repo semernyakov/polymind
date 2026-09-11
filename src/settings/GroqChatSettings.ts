@@ -30,6 +30,14 @@ export interface GroqChatSettings {
   maxHistoryLength: number;
   notePath: string;
   displayMode: 'tab' | 'sidepanel'; // Новое поле
+  /** Открывать чат автоматически при запуске Obsidian */
+  openOnStartup: boolean;
+  /** Раскрывать [[ссылки]] в сообщении содержимым заметки */
+  expandWikilinks: boolean;
+  /** Добавлять содержимое всех открытых заметок как контекст */
+  includeOpenNotes: boolean;
+  /** Максимальное число символов на заметку (0 = вся заметка) */
+  maxContextChars: number;
   groqAvailableModels?: GroqModelInfo[];
   groqRateLimits?: RateLimitsType;
   /** Сколько последних сообщений показывать при открытии */

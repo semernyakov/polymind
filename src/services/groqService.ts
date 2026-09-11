@@ -4,6 +4,7 @@ import { Message } from '../types/types';
 import type { GroqModelInfo } from '../settings/GroqChatSettings';
 import { Notice, requestUrl } from 'obsidian';
 import { fixModelNameCasing } from '../utils/modelUtils';
+import { buildNoteContext } from '../utils/noteContext';
 import { t } from '../localization';
 
 // Тип для лимитов
@@ -105,7 +106,10 @@ export class GroqService implements GroqServiceMethods {
         new Notice(t('rateLimitExceeded'));
         throw new Error(t('rateLimitsExhausted'));
       }
-
+      
+      // Enrich the message with note context (wikilink expansion / open notes)
+      content = await buildNoteContext(this.plugin.app, content, this.plugin.settings);
+      
       const streamResponse = await this.retryRequest(() =>
         this.client.chat.completions.create({
           model,

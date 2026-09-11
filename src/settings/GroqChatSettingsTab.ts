@@ -110,8 +110,14 @@ export class GroqChatSettingsTab extends PluginSettingTab {
     this.addHistorySettings(locale);
     // --- Интерфейс ---
     new Setting(this.containerEl).setName(t('settings.interface', locale)).setHeading();
+    
     // this.addDisplayModeSetting(locale); // Метод отсутствует
     this.addTailSettings(locale);
+
+    // --- Контекст заметок ---
+    new Setting(this.containerEl).setName(t('settings.noteContextHeading', locale)).setHeading();
+    this.addNoteContextSettings(locale);
+
     // --- Температура ---
     this.containerEl.appendChild(this.createTemperatureSetting(locale));
 
@@ -241,6 +247,60 @@ export class GroqChatSettingsTab extends PluginSettingTab {
           }),
       );
     return wrapper;
+  }
+private addNoteContextSettings(locale: Locale): void {
+    new Setting(this.containerEl)
+      .setName(t('settings.openOnStartup', locale))
+      .setDesc(t('settings.openOnStartupDesc', locale))
+      .addToggle(toggle =>
+        toggle.setValue(this.plugin.settings.openOnStartup).onChange(value => {
+          void (async () => {
+            this.plugin.settings.openOnStartup = value;
+            await this.plugin.saveSettings();
+          })();
+        }),
+      );
+
+    new Setting(this.containerEl)
+      .setName(t('settings.expandWikilinks', locale))
+      .setDesc(t('settings.expandWikilinksDesc', locale))
+      .addToggle(toggle =>
+        toggle.setValue(this.plugin.settings.expandWikilinks).onChange(value => {
+          void (async () => {
+            this.plugin.settings.expandWikilinks = value;
+            await this.plugin.saveSettings();
+          })();
+        }),
+      );
+
+    new Setting(this.containerEl)
+      .setName(t('settings.includeOpenNotes', locale))
+      .setDesc(t('settings.includeOpenNotesDesc', locale))
+      .addToggle(toggle =>
+        toggle.setValue(this.plugin.settings.includeOpenNotes).onChange(value => {
+          void (async () => {
+            this.plugin.settings.includeOpenNotes = value;
+            await this.plugin.saveSettings();
+          })();
+        }),
+      );
+
+    new Setting(this.containerEl)
+      .setName(t('settings.maxContextChars', locale))
+      .setDesc(t('settings.maxContextCharsDesc', locale))
+      .addText(text =>
+        text
+          .setPlaceholder('4000')
+          .setValue(String(this.plugin.settings.maxContextChars))
+          .onChange(value => {
+            void (async () => {
+              const num = parseInt(value);
+              this.plugin.settings.maxContextChars = !isNaN(num) && num >= 0 ? num : 0;
+              await this.plugin.saveSettings();
+              this.showSavedIcon(text.inputEl);
+            })();
+          }),
+      );
   }
 
   private showSavedIcon(element: HTMLElement) {

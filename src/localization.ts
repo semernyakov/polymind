@@ -37,6 +37,17 @@ const translations: Record<Locale, Record<string, string>> = {
     'settings.loadStepName': 'Шаг подгрузки истории',
     'settings.loadStepDesc':
       'Сколько сообщений добавлять при нажатии на кнопку или прокрутке вверх',
+    'settings.noteContextHeading': '📄 Контекст заметок',
+    'settings.openOnStartup': 'Открывать чат при запуске',
+    'settings.openOnStartupDesc': 'Автоматически открывать панель чата при запуске Obsidian.',
+    'settings.expandWikilinks': 'Раскрывать [[ссылки]] в сообщении',
+    'settings.expandWikilinksDesc':
+      'Заменять [[Заметка]] на реальное содержимое заметки перед отправкой.',
+    'settings.includeOpenNotes': 'Включать все открытые заметки как контекст',
+    'settings.includeOpenNotesDesc':
+      'Автоматически добавлять содержимое всех открытых вкладок к каждому сообщению.',
+    'settings.maxContextChars': 'Макс. символов на заметку',
+    'settings.maxContextCharsDesc': '0 = включать заметку целиком.',
     'settings.historyHeading': '🕓 История чата',
     'settings.default10': 'По умолчанию: 10',
     'settings.default20': 'По умолчанию: 20',
