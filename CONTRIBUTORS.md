@@ -7,7 +7,6 @@
 ## Contributors
 
 * **aknari** ([@aknari](https://github.com/aknari)) — Contributor (fork-based workflow)
-  * Co-authored-by: aknari <140411333+aknari@users.noreply.github.com>
 
 ---
 
