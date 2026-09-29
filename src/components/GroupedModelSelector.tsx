@@ -66,11 +66,27 @@ export const GroupedModelSelector: React.FC<GroupedModelSelectorProps> = ({
     onSelectModel(selectedValue);
   };
 
-  // Группируем модели и сортируем по алфавиту
-  const groupedModels = groupModelsByOwner(availableModels);
-  const sortedGroups = Object.entries(groupedModels).sort(([ownerA], [ownerB]) =>
-    ownerA.localeCompare(ownerB, locale === 'ru' ? 'ru' : 'en'),
-  );
+  // Группируем модели: сначала по провайдеру верхнего уровня (Groq / OpenRouter),
+  // затем — как и раньше — по владельцу (developer) внутри каждой группы провайдера.
+  // Нативный <select> не поддерживает вложенные <optgroup>, поэтому подгруппы
+  // владельцев рендерятся как отдельные optgroup с составной подписью
+  // "Provider · Owner", что визуально сохраняет иерархию провайдер → владелец.
+  const providerOrder: Array<{ id: 'groq' | 'openrouter'; label: string }> = [
+    { id: 'groq', label: 'Groq' },
+    { id: 'openrouter', label: 'OpenRouter' },
+  ];
+
+  const providerGroups = providerOrder
+    .map(({ id, label }) => {
+      const modelsForProvider = availableModels.filter(m => (m.provider ?? 'groq') === id);
+      if (modelsForProvider.length === 0) return null;
+      const groupedByOwner = groupModelsByOwner(modelsForProvider);
+      const sortedOwnerGroups = Object.entries(groupedByOwner).sort(([ownerA], [ownerB]) =>
+        ownerA.localeCompare(ownerB, locale === 'ru' ? 'ru' : 'en'),
+      );
+      return { providerId: id, providerLabel: label, ownerGroups: sortedOwnerGroups };
+    })
+    .filter((group): group is NonNullable<typeof group> => group !== null);
 
   return (
     <div className="groq-model-selector">
@@ -81,19 +97,21 @@ export const GroupedModelSelector: React.FC<GroupedModelSelectorProps> = ({
         className="groq-select"
         aria-label={t('chooseModel', locale)}
       >
-        {sortedGroups.map(([owner, models]) => (
-          <optgroup key={owner} label={owner}>
-            {models.map(modelInfo => {
-              const displayName =
-                modelInfo.name + (isPreviewModel(modelInfo) ? ` (${t('preview', locale)})` : '');
-              return (
-                <option key={modelInfo.id} value={modelInfo.id}>
-                  {displayName}
-                </option>
-              );
-            })}
-          </optgroup>
-        ))}
+        {providerGroups.map(({ providerId, providerLabel, ownerGroups }) =>
+          ownerGroups.map(([owner, models]) => (
+            <optgroup key={`${providerId}-${owner}`} label={`${providerLabel} · ${owner}`}>
+              {models.map(modelInfo => {
+                const displayName =
+                  modelInfo.name + (isPreviewModel(modelInfo) ? ` (${t('preview', locale)})` : '');
+                return (
+                  <option key={modelInfo.id} value={modelInfo.id}>
+                    {displayName}
+                  </option>
+                );
+              })}
+            </optgroup>
+          )),
+        )}
       </select>
     </div>
   );

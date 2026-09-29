@@ -19,6 +19,8 @@ export interface GroqModelInfo {
   tokensPerMinute?: number;
   releaseStatus?: string;
   isPreview?: boolean;
+  /** Провайдер, к которому относится модель. Отсутствие трактуется как 'groq'. */
+  provider?: 'groq' | 'openrouter';
 }
 
 export interface GroqChatSettings {
@@ -40,6 +42,9 @@ export interface GroqChatSettings {
   maxContextChars: number;
   groqAvailableModels?: GroqModelInfo[];
   groqRateLimits?: RateLimitsType;
+  openRouterApiKey: string;
+  openRouterAvailableModels?: GroqModelInfo[];
+  openRouterRateLimits?: RateLimitsType;
   /** Сколько последних сообщений показывать при открытии */
   messageTailLimit?: number;
   /** Шаг подгрузки истории (кнопка и автоподгрузка при прокрутке вверх) */
@@ -51,6 +56,7 @@ export interface GroqChatSettings {
  */
 export const DEFAULT_SETTINGS: Readonly<GroqChatSettings> = Object.freeze({
   apiKey: '',
+  openRouterApiKey: '',
   model: '_LLAMA3_70B',
   temperature: 0.7,
   maxTokens: 4096,

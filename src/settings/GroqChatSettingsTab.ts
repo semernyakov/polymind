@@ -103,8 +103,15 @@ export class GroqChatSettingsTab extends PluginSettingTab {
 
     new Setting(this.containerEl).setName(t('settings.modelSelection', locale)).setHeading();
     this.addModelSetting(locale);
-    // --- Список моделей (отдельная строка) ---
-    this.addModelListBlock(locale);
+    // --- Список моделей Groq (отдельная строка) ---
+    this.addModelListBlock(locale, 'groq');
+
+    // --- OpenRouter ---
+    new Setting(this.containerEl).setName(t('settings.openRouterHeading', locale)).setHeading();
+    this.addOpenRouterKeySetting(locale);
+    this.addOpenRouterLoadModelsButton(locale);
+    // --- Список моделей OpenRouter (отдельная строка) ---
+    this.addModelListBlock(locale, 'openrouter');
     // --- История ---
     new Setting(this.containerEl).setName(t('settings.historyHeading', locale)).setHeading();
     this.addHistorySettings(locale);
@@ -345,6 +352,77 @@ export class GroqChatSettingsTab extends PluginSettingTab {
       );
   }
 
+  private addOpenRouterKeySetting(locale: Locale): void {
+    new Setting(this.containerEl)
+      .setName(t('openRouterApiKey', locale))
+      .setDesc(
+        locale === 'ru'
+          ? 'Ваш ключ для доступа к OpenRouter API'
+          : 'Your key for accessing OpenRouter API',
+      )
+      .addText(text =>
+        text
+          .setPlaceholder(t('apiKeyPlaceholder', locale))
+          .setValue(this.plugin.settings.openRouterApiKey)
+          .onChange(value => {
+            void (async () => {
+              const trimmed = value.trim();
+              this.plugin.settings.openRouterApiKey = trimmed;
+              this.plugin.openRouterProvider.updateApiKey(trimmed);
+              await this.plugin.saveSettings();
+              this.showSavedIcon(text.inputEl);
+            })();
+          }),
+      )
+      .addButton(btn =>
+        btn
+          .setButtonText(t('checkApiKey', locale))
+          .setCta()
+          .onClick(() => {
+            void (async () => {
+              const isValid = await this.plugin.openRouterProvider.validateKey(
+                this.plugin.settings.openRouterApiKey,
+              );
+              new Notice(isValid ? t('validApiKey', locale) : t('invalidApiKey', locale));
+            })();
+          }),
+      );
+  }
+
+  private addOpenRouterLoadModelsButton(locale: Locale): void {
+    new Setting(this.containerEl)
+      .setName(t('settings.loadOpenRouterModels', locale))
+      .addButton(btn => {
+        const spinner = document.createElement('span');
+        spinner.className = 'mod-spinner groq-spinner';
+        btn.buttonEl.appendChild(spinner);
+
+        btn
+          .setButtonText(t('settings.loadOpenRouterModels', locale))
+          .setCta()
+          .onClick(() => {
+            void (async () => {
+              try {
+                btn.setDisabled(true);
+                spinner.classList.add('groq-spinner--visible');
+
+                const { models } = await this.plugin.openRouterProvider.getModelsWithLimits(true);
+                this.plugin.settings.openRouterAvailableModels = models;
+                await this.plugin.saveSettings();
+                new Notice(t('modelsUpdated', locale));
+                this.display();
+              } catch (error) {
+                console.error('Error loading OpenRouter models:', error);
+                new Notice(t('modelsUpdateError', locale));
+              } finally {
+                btn.setDisabled(false);
+                spinner.classList.remove('groq-spinner--visible');
+              }
+            })();
+          });
+      });
+  }
+
   private async fetchGroqModels(apiKey: string): Promise<GroqApiModel[]> {
     try {
       const response = await requestUrl({
@@ -507,12 +585,20 @@ export class GroqChatSettingsTab extends PluginSettingTab {
   }
 
   // --- Model List (table, separate row) ---
-  private addModelListBlock(locale: Locale): void {
-    // Create or find container for models table
-    let modelsBlock = this.containerEl.querySelector('.groq-models-block');
+  // providerFilter selects which provider's models are rendered ('groq' | 'openrouter');
+  // when omitted, all models from both providers are rendered (back-compatible).
+  // A model with no `provider` field is treated as 'groq'.
+  private addModelListBlock(locale: Locale, providerFilter?: 'groq' | 'openrouter'): void {
+    // Create or find container for models table. Each providerFilter gets its own
+    // container so the Groq and OpenRouter sections don't clobber each other.
+    const blockKey = providerFilter ?? 'all';
+    let modelsBlock = this.containerEl.querySelector(
+      `.groq-models-block[data-provider-filter="${blockKey}"]`,
+    ) as HTMLElement | null;
     if (!modelsBlock) {
       modelsBlock = document.createElement('div');
       modelsBlock.className = 'groq-models-block';
+      modelsBlock.setAttribute('data-provider-filter', blockKey);
       this.containerEl.appendChild(modelsBlock);
     }
     while (modelsBlock.firstChild) {
@@ -520,10 +606,43 @@ export class GroqChatSettingsTab extends PluginSettingTab {
     }
 
     const settings = this.plugin.settings;
-    const models = (settings.groqAvailableModels || []).map(model => ({
+    const resolveProvider = (model: GroqModelInfo): 'groq' | 'openrouter' =>
+      model.provider === 'openrouter' ? 'openrouter' : 'groq';
+
+    const groqModels = (settings.groqAvailableModels || []).map(model => ({
       ...model,
       isActive: model.isActive !== false, // Default to true if undefined
     }));
+    const openRouterModelsList = (settings.openRouterAvailableModels || []).map(model => ({
+      ...model,
+      isActive: model.isActive !== false,
+    }));
+
+    const allModels = [...groqModels, ...openRouterModelsList];
+    const models = providerFilter
+      ? allModels.filter(model => resolveProvider(model) === providerFilter)
+      : allModels;
+
+    // Persists isActive changes back into the correct per-provider settings array.
+    const persist = async (): Promise<void> => {
+      if (settings.groqAvailableModels) {
+        settings.groqAvailableModels = settings.groqAvailableModels.map(orig => {
+          const updated =
+            resolveProvider(orig) === 'groq' ? models.find(m => m.id === orig.id) : undefined;
+          return updated ? { ...orig, isActive: updated.isActive } : orig;
+        });
+      }
+      if (settings.openRouterAvailableModels) {
+        settings.openRouterAvailableModels = settings.openRouterAvailableModels.map(orig => {
+          const updated =
+            resolveProvider(orig) === 'openrouter'
+              ? models.find(m => m.id === orig.id)
+              : undefined;
+          return updated ? { ...orig, isActive: updated.isActive } : orig;
+        });
+      }
+      await this.plugin.saveSettings();
+    };
 
     // Группируем модели по владельцам
     const groupedModels = groupModelsByOwner(models);
@@ -603,11 +722,8 @@ export class GroqChatSettingsTab extends PluginSettingTab {
             const modelIndex = models.findIndex(m => m.id === model.id);
             if (modelIndex !== -1) {
               models[modelIndex].isActive = toggle.checked;
-              if (settings.groqAvailableModels) {
-                settings.groqAvailableModels = [...models];
-                await this.plugin.saveSettings();
-                this.showSavedIcon(toggle);
-              }
+              await persist();
+              this.showSavedIcon(toggle);
             }
           })();
         });
@@ -637,10 +753,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
           }
         }
       });
-      if (settings.groqAvailableModels) {
-        settings.groqAvailableModels = [...models];
-        await this.plugin.saveSettings();
-      }
+      await persist();
     };
 
     // Deselect all functionality
@@ -663,10 +776,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
           }
         }
       });
-      if (settings.groqAvailableModels) {
-        settings.groqAvailableModels = [...models];
-        await this.plugin.saveSettings();
-      }
+      await persist();
     };
 
     // Append buttons to select all block
