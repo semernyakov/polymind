@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.8] - 2026-09-29
+
+### Added
+- **Multi-provider architecture**: Added OpenRouter support alongside Groq via ProviderRegistry
+- **OpenRouterProvider**: Full OpenRouter integration with streaming, dynamic model catalog, and API model sync
+- **GroqProvider**: Refactored from GroqService implementing ChatProvider interface
+- **Note context**: Expand `[[wikilinks]]` into note content, include open notes as context, configurable per-note character limits
+- **buildNoteContext utility**: Enriches user messages with vault note context before sending to AI
+- **GitHub Release workflow fix**: Release artifacts now only include main.js, styles.css, manifest.json
+
+### Changed
+- **Provider routing**: Requests now routed via ProviderRegistry based on selected model
+- **Settings UI**: Provider-centric settings with separate Groq and OpenRouter sections
+- **Model management**: Models grouped by provider/owner in unified dropdown
+- **manifest.json description**: Updated to reflect Groq and OpenRouter support
+- **README.md & docs/README.ru.md**: Complete rewrite for multi-provider positioning
+- **CI/CD workflows**: Tests enabled in ci.yml and npm-publish.yml
+- **publish.yml trigger**: Fixed to use numeric tags (1.3.7 format) instead of v*
+
+### Fixed
+- **Note context integration**: buildNoteContext now called in ChatPanel before sending messages
+- **GroqService**: Replaced with GroqProvider re-export for backward compatibility
+- **GitHub Actions**: Removed duplicate release logic from npm-publish.yml
+
 ## [1.3.7] - 2026-09-11
 
 ### Added
