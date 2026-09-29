@@ -55,11 +55,11 @@ API в этой задаче нет: модели показываются ка�
 
 ## Состав каталога (только топовые/актуальные)
 
-| Провайдер | Модели |
-| --- | --- |
+| Провайдер | Модели                                               |
+| --------- | ---------------------------------------------------- |
 | Anthropic | Claude Opus 4.7, Claude Sonnet 4.6, Claude Haiku 4.5 |
-| Google | Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.0 Flash |
-| Yandex | YandexGPT 5 Pro, YandexGPT 5 Lite |
+| Google    | Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.0 Flash   |
+| Yandex    | YandexGPT 5 Pro, YandexGPT 5 Lite                    |
 
 Без legacy-версий (Claude 3.x, Gemini 1.5, YandexGPT 4 и т.п.).
 

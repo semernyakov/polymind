@@ -22,7 +22,12 @@ describe('mergeOpenRouterModels', () => {
       { id: 'anthropic/claude', name: 'Claude', provider: 'openrouter' as const, isActive: true },
     ];
     const api = [
-      { id: 'anthropic/claude', name: 'Claude dup', provider: 'openrouter' as const, isActive: true },
+      {
+        id: 'anthropic/claude',
+        name: 'Claude dup',
+        provider: 'openrouter' as const,
+        isActive: true,
+      },
       { id: 'x/new', name: 'New', provider: 'openrouter' as const, isActive: true },
     ];
     const out = mergeOpenRouterModels(curated, api);

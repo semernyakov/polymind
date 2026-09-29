@@ -21,8 +21,7 @@ jobs:
         run: npm ci
 
       - name: Run tests
-        run: echo "No tests configured - skipping"
-        continue-on-error: true
+        run: npm test
 
       - name: Build
         run: npm run build

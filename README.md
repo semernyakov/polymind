@@ -1,4 +1,4 @@
-# PolyMind – Obsidian Plugin
+# PolyMind – Obsidian AI Chat
 
 [![Release](https://img.shields.io/github/v/release/semernyakov/polymind?style=flat-square&label=Release)](https://github.com/semernyakov/polymind/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/semernyakov/polymind/total?style=flat-square&label=Downloads)](https://github.com/semernyakov/polymind/releases)
@@ -11,171 +11,336 @@
 
 [Русская версия](docs/README.ru.md)
 
-PolyMind is an Obsidian plugin for **Groq AI** with automatic model refresh in real time. It stores chat history, supports Markdown, and helps manage note context and interface settings.
+**PolyMind is an AI chat plugin for Obsidian that brings your notes directly into AI conversations as context.** Use Groq and OpenRouter models, switch between models with one click, work with `[[wikilinks]]`, and keep your conversations alongside your vault.
 
-> Current support: **Groq** only. **OpenRouter** is not enabled in this build yet, but adding a second provider is planned for a future update.
+PolyMind is designed for context-aware AI workflows without leaving Obsidian.
 
 ## Screenshots
 
 **Main Interface**
 
-![polymind-main.png](docs/polymind-main.png)
+![PolyMind main interface](docs/polymind-main.png)
 
 **Settings Interface**
 
-![polymind-settings.png](docs/polymind-settings.png)
+![PolyMind settings](docs/polymind-settings.png)
 
 ## Features
 
-| Category              | Features                                                                                                                                                                                             |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Current focus: text and code chat workflows      |
-| **🌐 Localization**   | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                     |
-| **📝 Content**        | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages |
+| Category                    | Features                                                                                                                                                                |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🤖 AI Integration**       | Groq and OpenRouter support<br>Dynamic model discovery and refresh<br>One-click model switching<br>Model information dialog                                             |
+| **🧠 Note Context**         | Add notes from your vault as AI context<br>Expand `[[wikilinks]]` into note content<br>Include all open notes as context<br>Configurable per-note character limits      |
+| **💬 Chat**                 | Persistent conversation history<br>Markdown rendering<br>Code syntax highlighting<br>Raw/Markdown source view                                                           |
+| **📝 Obsidian Integration** | Work directly inside your vault<br>Create new notes from AI messages<br>Use active and open notes as conversation context                                               |
+| **⚙️ Model Management**     | Model selection and grouping by provider/owner<br>Dynamic model catalog<br>Batch model activation/deactivation<br>Temperature and maximum token configuration           |
+| **💾 Storage**              | Multiple history storage options:<br>• In-memory storage<br>• `localStorage`<br>• IndexedDB<br>• File-based storage<br>Configurable history length and loading behavior |
+| **📱 Platform**             | Desktop and mobile support<br>Configurable display mode: tab or side panel                                                                                              |
+| **🌐 Localization**         | English and Russian interface<br>Automatic language detection based on Obsidian language                                                                                |
+| **🔐 Privacy**              | API keys and chat data remain on the local device<br>No telemetry or external analytics                                                                                 |
+| **💝 Community**            | Open source and community-driven<br>Support dialog with donation links                                                                                                  |
 
-| **📱 Platform** | Mobile support<br>Configurable default display mode (tab or side panel) |
-| **⚙️ Model Management** | Custom model selection with grouping by model owner<br>Batch model activation/deactivation<br>Temperature and max tokens configuration |
-| **💾 Storage** | Chat history with multiple storage options:<br>• In-memory storage<br>• localStorage<br>• IndexedDB<br>• File-based storage<br>Configurable history length and loading behavior |
-| **🔐 Security** | Secure API key storage<br>Hotkeys and advanced settings |
-| **💝 Community** | Support dialog with donation links<br>Open source and community-driven |
+## Note Context
+
+The main feature of PolyMind is the ability to use your Obsidian vault as context for AI conversations.
+
+Instead of copying information from your notes into a chat manually, PolyMind can add note content directly to the conversation context.
+
+### Wikilink context
+
+When enabled, `[[wikilinks]]` in your message can be resolved to the corresponding notes and their content can be included in the AI context.
+
+For example:
+
+```text
+Explain the relationship between [[Project Alpha]] and [[Research Notes]].
+```
+
+PolyMind can expand the linked notes and provide their content to the selected AI model.
+
+### Open notes as context
+
+You can also configure PolyMind to automatically include all currently open notes as context for each message.
+
+This is useful when working with several related notes, research materials, projects, or documentation.
+
+### Context limits
+
+To control the amount of information sent to the AI provider, PolyMind provides a configurable maximum character limit per note.
+
+Set the limit to:
+
+* a specific number of characters to restrict context size
+* `0` to include the entire note
+
+## AI Providers
+
+PolyMind supports AI models through multiple providers.
+
+### Groq
+
+Groq provides access to fast AI inference and a dynamically updated model catalog.
+
+### OpenRouter
+
+OpenRouter provides access to models from multiple AI providers through a unified API.
+
+The available models depend on the provider's current catalog and your provider configuration.
+
+> Model availability is provider-dependent and can change over time. PolyMind does not maintain a static list of available models.
+
+## Model Management
+
+PolyMind does not ship with a fixed, hand-maintained model list.
+
+Instead, the plugin requests the current model catalog from the configured provider and refreshes the available models when needed.
+
+This means:
+
+* new models can appear without a PolyMind release
+* models can become unavailable or be removed by a provider
+* model metadata may change over time
+* the model list shown in PolyMind reflects the provider's current catalog
+* different providers may expose different models and capabilities
+
+### Refreshing models
+
+To refresh the model list:
+
+1. Open **Obsidian Settings**.
+2. Open **PolyMind** settings.
+3. Find the model configuration section.
+4. Click the refresh button next to the model selector.
+5. PolyMind fetches the current model catalog from the provider.
+6. Select the models you want to use.
+
+Models can be grouped by provider or owner to make large model catalogs easier to navigate.
 
 ## Project Status
 
-This project is actively maintained and developed. The current implementation is focused on text and code chat workflows via the Groq API, note-context enrichment, and history management. In the current release, only two primary modes are supported: text/code chat and note-context enrichment. Image and audio input/output are not supported, and these capabilities remain work in progress.
+PolyMind is actively developed and focuses on context-aware AI conversations inside Obsidian.
 
-### Current model support
+The current implementation supports:
 
-At the moment, PolyMind is primarily aimed at text-based chat models and code-oriented workflows. The plugin intentionally filters out non-chat entries such as image and audio models from the UI, because those multimodal capabilities are not supported yet.
+* AI chat with Groq
+* AI chat with OpenRouter
+* Dynamic model discovery
+* One-click model switching
+* Note content as AI context
+* `[[wikilink]]` expansion
+* Open-note context
+* Persistent chat history
+* Markdown and code rendering
+* Creating notes from AI responses
+* Desktop and mobile usage
 
-The plugin does not maintain a fixed built-in model list. Instead, it requests the current model catalog from the provider at runtime and refreshes the available model list in the settings UI.
+### Multimodal capabilities
 
-This means:
+PolyMind's current workflows are primarily focused on text and code.
 
-- model availability can change over time without a plugin release
-- new models appear automatically after a refresh
-- some models may be temporarily unavailable or hidden by the provider
-- multimodal models (image/audio) are not currently supported even if the provider exposes them
-- the list shown in the app is the source of truth, not a static README table
+Although some providers may expose models with image, audio, or other multimodal capabilities, PolyMind does not currently guarantee support for all such model capabilities.
 
-### Model availability
+Provider model catalogs are therefore filtered according to the capabilities currently supported by the plugin.
 
-The plugin does not maintain a fixed built-in model list. Instead, it requests the current model catalog from the provider at runtime and refreshes the available model list in the settings UI.
-
-This means:
-
-- model availability can change over time without a plugin release
-- new models appear automatically after a refresh
-- some models may be temporarily unavailable or hidden by the provider
-- the list shown in the app is the source of truth, not a static README table
-
-To refresh the list, open plugin settings and use the model refresh button. The app groups models by owner and filters out non-chat entries such as speech, image, and audio models when relevant.
-
-> The list below is only an example and may be outdated by the time you read it. Always check the in-app list in the plugin settings.
-
-> The current release supports only text models. Image and audio support is still in progress, and additional provider support is planned for future releases.
+Additional multimodal functionality may be introduced in future releases.
 
 ## Installation
 
-1. Open Obsidian Settings
-2. Go to Community Plugins and disable Safe Mode
-3. Click Browse and search for "PolyMind"
-4. Install the plugin
-5. Enable the plugin in Community Plugins
+### Community Plugins
+
+1. Open **Obsidian Settings**.
+2. Go to **Community plugins**.
+3. Make sure Community plugins are enabled.
+4. Click **Browse**.
+5. Search for **PolyMind**.
+6. Install the plugin.
+7. Enable PolyMind.
 
 ## Configuration
 
-1. Get your API key from [Groq Console](https://console.groq.com)
-2. Open plugin settings in Obsidian
-3. Enter your API key
-4. Configure additional settings as needed (Note: Settings have been updated, including options for default display mode and history storage. See plugin settings for details.)
+After installing PolyMind:
 
-Under **Note context** you can control whether the chat opens automatically when Obsidian starts (`Open chat on startup`), whether `[[wikilinks]]` in your messages are expanded into the actual note content (`Expand [[links]] in your message`), whether all open notes are appended as context to every message (`Include all open notes as context`), and the per-note character limit (`Max characters per note`, `0` = whole note).
+1. Open **Obsidian Settings**.
+2. Open **PolyMind**.
+3. Configure your AI provider.
+4. Enter the required API key.
+5. Select the models you want to use.
+6. Configure chat, note context, and history settings.
 
-### How model refresh works
+### API keys
 
-The plugin does not ship with a static, hand-maintained model list. Instead, it fetches the current model catalogue from Groq when needed and refreshes the list in settings.
+For Groq, obtain an API key from the [Groq Console](https://console.groq.com).
 
-Typical flow:
+For OpenRouter, obtain an API key from [OpenRouter](https://openrouter.ai/).
 
-1. Open plugin settings.
-2. Click the refresh button next to the model selector.
-3. The app calls the provider API and loads the current model list.
-4. The UI groups models by owner and filters non-chat entries when applicable.
-5. The selected model is saved back into plugin settings.
+API keys are stored locally in your Obsidian environment and are used to communicate directly with the configured provider.
 
-Because the list is provider-driven, model availability can change without a new plugin release. If a model disappears, is renamed, or is temporarily unavailable, the next refresh updates the list automatically.
+### Note context settings
+
+The **Note context** settings control how Obsidian notes are included in AI conversations.
+
+Available options include:
+
+* **Open chat on startup** — automatically open the PolyMind chat when Obsidian starts.
+* **Expand `[[links]]` in your message** — resolve wikilinks in your message and include the referenced note content as context.
+* **Include all open notes as context** — append currently open notes to the context of each message.
+* **Max characters per note** — limit how much content from each note is included. Set to `0` to include the whole note.
 
 ## Usage
 
-1. Open any note in Obsidian
-2. Click the PolyMind icon in the sidebar
-3. Select the model you want (models update in real time)
-4. Start chatting with AI (text, code)
-5. View model info any time via the Model Info Dialog
+1. Open a note in Obsidian.
+2. Open PolyMind from the sidebar.
+3. Select an AI provider and model.
+4. Start a conversation.
+5. Add relevant notes to the conversation context using wikilinks or open-note context.
+6. Continue working with your vault without leaving Obsidian.
+
+### Example
+
+Suppose your vault contains:
+
+```text
+Projects/
+├── Project Alpha.md
+├── Project Beta.md
+└── Meeting Notes.md
+```
+
+You can ask:
+
+```text
+Compare [[Project Alpha]] and [[Project Beta]]
+based on the latest [[Meeting Notes]].
+```
+
+With note context enabled, PolyMind can use the contents of these notes when generating the response.
+
+## Chat History
+
+PolyMind supports persistent chat history with multiple storage backends.
+
+Available storage options include:
+
+* In-memory storage
+* `localStorage`
+* IndexedDB
+* File-based storage
+
+You can configure:
+
+* the history storage method
+* the maximum history length
+* how much history is loaded when opening a conversation
+
+The appropriate storage option depends on your workflow and the amount of conversation history you want to retain.
+
+## Display Modes
+
+PolyMind can be displayed using different Obsidian layouts.
+
+Depending on your configuration, the chat can open as:
+
+* a dedicated tab
+* a side panel
+
+You can also configure whether the chat should open automatically when Obsidian starts.
+
+## Mobile Support
+
+PolyMind supports Obsidian on mobile devices.
+
+The interface is designed to work with the same vault and provider configuration across supported Obsidian platforms.
 
 ## Test the Plugin with BRAT
 
-You can install and test the latest development version of the plugin using the [BRAT](https://github.com/TfTHacker/obsidian42-brat) (Beta Reviewers Auto-update Tool) plugin for Obsidian.
+You can install and test the latest development version of PolyMind using [BRAT](https://github.com/TfTHacker/obsidian42-brat), the Beta Reviewers Auto-update Tool for Obsidian.
 
-**Steps**
+### Steps
 
-1. Install BRAT from the Obsidian Community Plugins.
+1. Install BRAT from Obsidian Community Plugins.
 2. Open BRAT settings.
-3. Click Add Beta Plugin.
-4. Paste the repository URL: https://github.com/semernyakov/polymind
-5. Confirm installation.
+3. Click **Add Beta Plugin**.
+4. Enter the repository URL:
 
-BRAT will automatically install the plugin and allow you to receive updates directly from the repository.
+```text
+https://github.com/semernyakov/polymind
+```
+
+5. Confirm the installation.
+
+BRAT will install the development version of PolyMind and can automatically update it when new versions are available.
 
 ## Development
 
+Clone the repository:
+
 ```bash
-# Clone the repository
 git clone https://github.com/semernyakov/polymind.git
+cd polymind
+```
 
-# Install dependencies
+Install dependencies:
+
+```bash
 npm install
+```
 
-# Development mode
+Run the development build:
+
+```bash
 npm run dev
+```
 
-# Build the plugin
+Build the plugin:
+
+```bash
 npm run build
+```
 
-# Formatting
+Format the code:
+
+```bash
 npm run format
+```
 
-# Lint the code
+Run linting:
+
+```bash
 npm run lint
 ```
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Contributions are welcome!
+
+Please read the [Contributing Guide](CONTRIBUTING.md) for information about the development workflow, code of conduct, and contribution process.
 
 ## Security
 
-For security issues, please read our [Security Policy](SECURITY.md) and report any vulnerabilities responsibly.
+For security issues, please read the [Security Policy](SECURITY.md) and report vulnerabilities responsibly.
 
-> **🔐 Security Note:** Your Groq API key is stored only on your local device and is never transmitted to any server.
->
-> **🛡️ Data Privacy:** This plugin does not collect, store, or transmit your API keys or chat data. All data remains on your local device.
+> **🔐 Security Note:** Your API keys are stored locally in your Obsidian environment and are used to communicate with the configured AI provider.
+
+> **🛡️ Data Privacy:** PolyMind does not collect or transmit your API keys or chat data to a PolyMind server. Conversations and plugin data are stored locally according to your configured storage options. API requests are sent directly to the AI provider you configure.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
 
 ## Support
 
-If you find PolyMind helpful, you can support development via:
+If you find PolyMind useful, you can support development via:
 
-- 💰 **YooMoney**: [Support via YooMoney](https://yoomoney.ru/fundraise/194GT5A5R07.250321)
-  - Accepts transfers from both Russia and other Countries (via bank cards)
-- ⭐ **Star the repository**: [Add a star on GitHub](https://github.com/semernyakov/polymind)
-- 🐛 **Report issues**: [Create an issue](https://github.com/semernyakov/polymind/issues)
+* 💰 **YooMoney:** [Support via YooMoney](https://yoomoney.ru/fundraise/194GT5A5R07.250321)
+
+  * Accepts transfers from Russia and other countries via bank cards
+* ⭐ **Star the repository:** [Add a star on GitHub](https://github.com/semernyakov/polymind)
+* 🐛 **Report issues:** [Create an issue](https://github.com/semernyakov/polymind/issues)
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for all changes.
+See [CHANGELOG.md](CHANGELOG.md) for the complete change history.
 
 ---
+
+**PolyMind — bring your Obsidian notes into the AI conversation.**

@@ -141,3 +141,5 @@ tmp/
 
 # Local development
 temp/
+!/docs/superpowers/
+/.claude/

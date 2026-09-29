@@ -28,6 +28,9 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
+      - name: Run tests
+        run: npm test
+
   build:
     needs: test
     runs-on: ubuntu-latest

@@ -3,7 +3,11 @@ import { describe, it, expect, vi } from 'vitest';
 vi.mock('../../localization', () => ({
   t: (key: string) => key,
 }));
-vi.mock('groq-sdk', () => ({ Groq: class { constructor(_o: unknown) {} } }));
+vi.mock('groq-sdk', () => ({
+  Groq: class {
+    constructor(_o: unknown) {}
+  },
+}));
 vi.mock('obsidian', () => ({
   requestUrl: vi.fn(),
 }));

@@ -1,6 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
 vi.mock('../../localization', () => ({ t: (k: string) => k }));
-vi.mock('groq-sdk', () => ({ Groq: class { constructor(_o: unknown) {} } }));
+vi.mock('groq-sdk', () => ({
+  Groq: class {
+    constructor(_o: unknown) {}
+  },
+}));
 
 import { ProviderRegistry } from './ProviderRegistry';
 import type { ChatProvider } from './types';
@@ -12,7 +16,14 @@ function stub(id: 'groq' | 'openrouter', models: GroqModelInfo[]): ChatProvider 
     updateApiKey: () => {},
     validateKey: async () => true,
     getModelsWithLimits: async () => ({ models, rateLimits: {} }),
-    sendMessage: async () => ({ id: '1', role: 'assistant', content: '', timestamp: 0, isStreaming: false, hasThinkContent: false }),
+    sendMessage: async () => ({
+      id: '1',
+      role: 'assistant',
+      content: '',
+      timestamp: 0,
+      isStreaming: false,
+      hasThinkContent: false,
+    }),
     handleError: (e: unknown) => (e instanceof Error ? e : new Error('x')),
   };
 }

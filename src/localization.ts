@@ -64,7 +64,8 @@ const translations: Record<Locale, Record<string, string>> = {
     'settings.selectModelPlaceholder': 'Выберите модель',
     'settings.openRouterHeading': 'OpenRouter',
     openRouterApiKey: 'Ключ API OpenRouter',
-    openRouterKeyMissing: 'Добавьте ключ API OpenRouter в настройках, чтобы использовать эту модель',
+    openRouterKeyMissing:
+      'Добавьте ключ API OpenRouter в настройках, чтобы использовать эту модель',
     'settings.loadOpenRouterModels': 'Загрузить все модели из API',
     modelDesc: 'Выберите модель, которую плагин будет использовать для ответа',
     supportDialogTitle: 'Поддержать разработку',

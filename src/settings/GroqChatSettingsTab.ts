@@ -635,9 +635,7 @@ export class GroqChatSettingsTab extends PluginSettingTab {
       if (settings.openRouterAvailableModels) {
         settings.openRouterAvailableModels = settings.openRouterAvailableModels.map(orig => {
           const updated =
-            resolveProvider(orig) === 'openrouter'
-              ? models.find(m => m.id === orig.id)
-              : undefined;
+            resolveProvider(orig) === 'openrouter' ? models.find(m => m.id === orig.id) : undefined;
           return updated ? { ...orig, isActive: updated.isActive } : orig;
         });
       }

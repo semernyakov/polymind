@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { GroqPluginInterface } from '../types/plugin';
 import { Message } from '../types/types';
 import { MessageUtils } from '../utils/messageUtils';
+import { buildNoteContext } from '../utils/noteContext';
 import { MessageList, MessageListHandles } from './MessageList';
 import { GroupedModelSelector } from './GroupedModelSelector';
 import { MessageInput } from './MessageInput';
@@ -298,8 +299,12 @@ export const ChatPanel: React.FC<ChatPanelProps> = props => {
         // fetchAvailableModels() call has resolved.
         await plugin.providers.getAllModels();
         const provider = plugin.providers.routeForModel(selectedModel);
+        
+        // Enrich message with note context (wikilinks, open notes)
+        const enrichedContent = await buildNoteContext(plugin.app, trimmedValue, plugin.settings);
+        
         const assistantMessage = await provider.sendMessage(
-          trimmedValue,
+          enrichedContent,
           selectedModel,
           handleChunk,
         );
