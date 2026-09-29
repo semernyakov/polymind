@@ -27,11 +27,11 @@ PolyMind is an Obsidian plugin for **Groq AI** with automatic model refresh in r
 
 ## Features
 
-| Category              | Features                                                                                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Current focus: text and code chat workflows |
-| **🌐 Localization**   | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                              |
-| **📝 Content**        | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages          |
+| Category              | Features                                                                                                                                                                                             |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🤖 AI Integration** | Direct integration with Groq AI models<br>Dynamic model list: models are updated in real-time<br>Model Info Dialog: detailed info for each model<br>Current focus: text and code chat workflows      |
+| **🌐 Localization**   | Localized interface (English/Russian)<br>Automatically detects Obsidian language                                                                                                                     |
+| **📝 Content**        | Markdown formatting and code highlighting<br>Raw/Markdown source view toggle<br>Note context: expand [[links]] into note content, include open notes as context<br>Create new notes from AI messages |
 
 | **📱 Platform** | Mobile support<br>Configurable default display mode (tab or side panel) |
 | **⚙️ Model Management** | Custom model selection with grouping by model owner<br>Batch model activation/deactivation<br>Temperature and max tokens configuration |

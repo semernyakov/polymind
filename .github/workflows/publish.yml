@@ -60,9 +60,8 @@ jobs:
         with:
           body: ${{ steps.changelog.outputs.clean_changelog }}
           files: |
-            dist/*
+            dist/main.js
+            dist/styles.css
             manifest.json
-            README.md
-            LICENSE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
