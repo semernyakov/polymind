@@ -14,6 +14,7 @@ module.exports = [
       'src/hot-reload.js',
       'main.js',
       'eslint.config.js', // Ignore the config file itself
+      'vitest.config.ts', // Not part of tsconfig.json project
     ],
   },
   {
@@ -62,15 +63,7 @@ module.exports = [
       ],
       'no-console': 'off', // ['warn', { allow: ['warn', 'error'] }],
       'no-undef': 'off', // Отключаем, так как TypeScript сам проверяет необъявленные переменные
-      'no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
+      'no-unused-vars': 'off', // Use @typescript-eslint/no-unused-vars instead
     },
   },
 ];
