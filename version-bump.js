@@ -32,13 +32,14 @@ try {
 
   // Читаем и обновляем community-plugins.json
   const communityPlugins = JSON.parse(readFileSync('community-plugins.json', 'utf8'));
-  const pluginIndex = communityPlugins.findIndex(plugin => plugin.id === 'groq-chat-plugin');
+  const pluginIndex = communityPlugins.findIndex(plugin => plugin.id === 'polymind');
+
   if (pluginIndex !== -1) {
     communityPlugins[pluginIndex].version = targetVersion;
     writeFileSync('community-plugins.json', JSON.stringify(communityPlugins, null, 4));
     console.log(`✅ Версия обновлена до ${targetVersion} в community-plugins.json`);
   } else {
-    console.warn('⚠️ Warning: Плагин groq-chat-plugin не найден в community-plugins.json');
+    console.warn('⚠️ Warning: Плагин polymind не найден в community-plugins.json');
   }
 
   console.log(`✅ Версия обновлена до ${targetVersion}`);
