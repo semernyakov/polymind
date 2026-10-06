@@ -1,6 +1,6 @@
 {
   "name": "polymind",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "A powerful multimodal AI chat for Obsidian with OpenRouter and Groq support — bring your notes into the conversation as context and switch between AI models with one click.",
   "main": "main.js",
   "type": "commonjs",
