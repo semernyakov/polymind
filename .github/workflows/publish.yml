@@ -3,65 +3,74 @@ name: Release
 on:
   push:
     tags:
-      - '[0-9]*'
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: write
-  issues: write
-  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Git Identity
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate version
+        shell: bash
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME}"
+
+          MANIFEST_VERSION=$(node -p "require('./manifest.json').version")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
+          echo "Tag:      $TAG_VERSION"
+          echo "Manifest: $MANIFEST_VERSION"
+          echo "Package:  $PACKAGE_VERSION"
+
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: manifest.json version does not match tag"
+            exit 1
+          fi
+
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: package.json version does not match tag"
+            exit 1
+          fi
+
       - name: Build
         run: npm run build
 
-      - name: Create empty CHANGELOG.md if not exists
-        run: touch CHANGELOG.md
+      - name: Validate release files
+        shell: bash
+        run: |
+          test -f dist/main.js
+          test -f manifest.json
 
-      - name: Generate changelog
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: './package.json,./manifest.json'
-          git-message: 'chore(release): {version}'
-          preset: 'angular'
-          tag-prefix: 'v'
-          output-file: 'CHANGELOG.md'
-          skip-git-pull: 'true'
-          skip-on-empty: 'false'
-          create-summary: 'true'
+          if [ -f dist/styles.css ]; then
+            echo "styles.css found"
+          else
+            echo "styles.css not found — continuing without it"
+          fi
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        if: steps.changelog.outputs.skipped == 'false'
+      - name: Create release
+        uses: softprops/action-gh-release@v2
         with:
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          tag_name: ${{ github.ref_name }}
           files: |
             dist/main.js
-            dist/styles.css
             manifest.json
+            dist/styles.css
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
